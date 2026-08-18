@@ -87,14 +87,16 @@ Puedes lanzar el proceso completo con `/init-proyecto`.
    una línea, qué problema resuelve, requisitos previos, variables de entorno (referencia a
    `.env.example`), instalación y desarrollo (`pnpm install`, `pnpm dev`), estructura de
    carpetas, cómo contribuir (referencia a `CLAUDE.md` y al protocolo) y estado del proyecto.
+   Los badges de la cabecera apuntan al repositorio de la plantilla: quítalos o repóntalos al
+   tuyo, o quedarán enseñando el estado de un repo que no es este.
 2. **`CLAUDE.md`** — rellena los placeholders de este mismo archivo: nombre, descripción,
    estado, stack tecnológico, estructura de carpetas, convenciones de código y "Qué NO hacer".
    Borra los comentarios `<!-- ... -->` que ya no apliquen, esta sección de inicialización
    (deja de tener sentido una vez hecha), el comando `.claude/commands/init-proyecto.md` y las
    referencias a `.template/` del arranque y del protocolo de changelog. El "Protocolo de MCPs"
    se queda: sigue aplicando cada vez que entre una integración nueva.
-3. **`LICENSE`** — sustituye `[YEAR]` y `[AUTHOR]` por los valores reales. Pregunta el nombre
-   del autor si no lo sabes.
+3. **`LICENSE`** — la plantilla se distribuye con el copyright de su autor. Sustituye esa línea
+   por el año actual y el titular de *este* proyecto. Pregunta el nombre si no lo sabes.
 4. **`.env.example`** — deja solo las variables que el stack elegido necesita de verdad.
 5. **MCPs** — con el stack ya decidido, pregunta al usuario qué servidores MCP quiere y con qué
    alcance, siguiendo el "Protocolo de MCPs" (o lanza `/mcp-setup`).

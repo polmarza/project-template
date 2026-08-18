@@ -1,6 +1,20 @@
-# project-template
+<h1 align="center">project-template</h1>
 
-Plantilla para empezar proyectos cuando trabajas con agentes de código (Claude Code, Cursor y compañía) sin que se pongan a escribir antes de entender qué estás construyendo.
+<p align="center">
+  Plantilla para empezar proyectos cuando trabajas con agentes de código<br>
+  sin que se pongan a escribir antes de entender qué estás construyendo.
+</p>
+
+<p align="center">
+  <a href="https://github.com/polmarza/project-template/actions/workflows/cobertura.yml"><img alt="Cobertura" src="https://github.com/polmarza/project-template/actions/workflows/cobertura.yml/badge.svg"></a>
+  <a href="./LICENSE"><img alt="Licencia MIT" src="https://img.shields.io/badge/licencia-MIT-blue"></a>
+  <img alt="pnpm v11" src="https://img.shields.io/badge/pnpm-v11-f69220">
+  <img alt="Agnóstica al stack" src="https://img.shields.io/badge/stack-agn%C3%B3stico-6b7280">
+</p>
+
+<p align="center">
+  <a href="https://github.com/polmarza/project-template/generate"><strong>Usar esta plantilla →</strong></a>
+</p>
 
 ---
 
@@ -28,7 +42,7 @@ Es agnóstica al stack. El protocolo funciona igual con Next.js, Astro, FastAPI 
 - **`docs/features/`** — Una ficha por unidad de trabajo acordada: qué se construye, qué requisitos cierra y **cómo se va a comprobar cada uno**. Es el contrato que se firma antes de escribir código. **Llega vacía**.
 - **`changelog/`** — Registro estructurado de cada cambio importante: qué, cuándo, por qué y qué requisitos cierra. **Llega vacío**: solo con el archivo que explica el formato.
 - **`mejoras/`** — Backlog de ideas que no entran en el sprint actual pero no se quieren perder.
-- **`.claude/`** — Configuración de Claude Code con permisos sensatos y slash commands custom (`/feature`, `/changelog`, `/mejora`, `/doctor`, `/mcp-setup`, `/init-proyecto`) para no tener que recordar el protocolo de memoria.
+- **`.claude/`** — Configuración de Claude Code con permisos sensatos y slash commands custom, para no tener que recordar el protocolo de memoria.
 - **`scripts/`** — Una verificación ejecutable: comprueba que ninguna ficha deje un requisito sin validar y que los tests prometidos existan de verdad. Node sin dependencias.
 - **`.github/`** — Plantillas de pull request e issues alineadas con el protocolo, y el workflow que ejecuta esa verificación en cada PR. El PR pide **evidencia pegada**, no casillas marcadas.
 - **`.template/`** — Historial de la plantilla en sí. Se borra al inicializar tu proyecto, así no arrastras cambios que no son tuyos.
@@ -37,6 +51,17 @@ Es agnóstica al stack. El protocolo funciona igual con Next.js, Astro, FastAPI 
 ---
 
 ## ¿Cómo funciona el protocolo?
+
+```mermaid
+flowchart LR
+    A["Requisito en docs/prd.md<br>con criterio de aceptación"]
+    B["Ficha de feature<br>Acordada"]
+    C["En construcción"]
+    D["Tests escritos<br>sobre el código real"]
+    E["Verificada"]
+    F["PR con evidencia<br>CI verifica la cobertura"]
+    A --> B --> C --> D --> E --> F
+```
 
 1. **Cualquier sesión empieza leyendo `docs/`.** Si están vacíos o incompletos, el agente pregunta antes de actuar. Y no pide los ocho documentos: pide los que correspondan al tamaño del proyecto.
 2. **Cada funcionalidad del PRD lleva ID y criterio de aceptación comprobable.** "Dado…, cuando…, entonces…", con un resultado que se pueda mirar. Ese criterio es el que después se convierte en test.
@@ -51,9 +76,22 @@ Es agnóstica al stack. El protocolo funciona igual con Next.js, Astro, FastAPI 
 
 ---
 
+## Comandos
+
+| Comando | Qué hace |
+|---------|----------|
+| `/feature` | Crea la ficha de una feature **antes** de construirla, con su tabla de cobertura |
+| `/changelog` | Registra un cambio con el formato del proyecto |
+| `/mejora` | Añade una idea al backlog sin romper el flujo de trabajo |
+| `/doctor` | Parte del estado: documentación, fichas a medias, entorno, variables, MCPs y tests |
+| `/mcp-setup` | Configura los servidores MCP del stack, preguntando alcance y credenciales |
+| `/init-proyecto` | Convierte la plantilla en el repositorio de tu proyecto (una sola vez) |
+
+---
+
 ## ¿Cómo empezar?
 
-1. Usa este repo como plantilla en GitHub (botón **"Use this template"**) o clónalo directamente.
+1. Pulsa **[Usar esta plantilla](https://github.com/polmarza/project-template/generate)** en GitHub, o clona el repo directamente.
 2. Abre el proyecto en Claude Code, Cursor o el agente que prefieras.
 3. Cuando el agente lea `CLAUDE.md` por primera vez, te preguntará qué quieres construir y para quién. Responde y deja que vaya completando los docs contigo, uno a uno.
 4. Con los docs rellenos, el agente **inicializa el proyecto**: reescribe este README para tu producto, rellena los datos de `CLAUDE.md`, ajusta la licencia y `.env.example`, borra los documentos que tu proyecto no necesite y `.template/`, y deja el changelog con su primera entrada real. Lo hace solo; si quieres forzarlo, usa `/init-proyecto`.
@@ -76,13 +114,13 @@ No tienes que hacerlo a mano: el agente lo hace en la inicialización, siguiendo
 
 | Archivo | Qué pasa con él |
 |---------|-----------------|
-| `README.md` | Se reescribe entero para tu producto (este texto desaparece) |
+| `README.md` | Se reescribe entero para tu producto (este texto y sus badges desaparecen) |
 | `CLAUDE.md` | Se rellenan nombre, stack, estructura y convenciones |
-| `LICENSE` | Se sustituyen `[YEAR]` y `[AUTHOR]` |
+| `LICENSE` | El copyright pasa a ser el tuyo |
 | `.env.example` | Se queda solo con las variables de tu stack |
 | `docs/` | Se borran los documentos que tu proyecto no necesita, según su tamaño |
-| `scripts/` | Se queda tal cual: la verificación no depende del stack |
 | `docs/features/` | Se queda vacía, lista para la primera ficha |
+| `scripts/` | Se queda tal cual: la verificación no depende del stack |
 | `changelog/` | Recibe la primera entrada real del proyecto |
 | `mejoras/backlog.md` | Se limpia el ejemplo |
 | `.template/` | Se borra |
@@ -93,4 +131,4 @@ El criterio es simple: cuando termina la inicialización, **ningún archivo del 
 
 ## Licencia
 
-MIT. Ver [`LICENSE`](./LICENSE).
+MIT © 2026 Pol Marzà. Ver [`LICENSE`](./LICENSE).

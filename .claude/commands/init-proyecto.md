@@ -30,7 +30,8 @@ Ejecuta el checklist de "Inicialización del proyecto" de `CLAUDE.md`:
    y "Qué NO hacer". Borra los comentarios que ya no apliquen y la sección de inicialización del
    proyecto (ya no hace falta) junto con la referencia a este comando. **El "Protocolo de MCPs" se
    queda**: sigue aplicando cada vez que entre una integración nueva.
-3. `LICENSE` — sustituye `[YEAR]` y `[AUTHOR]`.
+3. `LICENSE` — sustituye la línea de copyright de la plantilla por el año actual y el
+   titular de este proyecto.
 4. `.env.example` — deja solo las variables del stack real.
 5. MCPs — pregunta qué servidores MCP quiere y con qué alcance, siguiendo el "Protocolo de MCPs"
    de `CLAUDE.md`. Si prefieres tratarlo aparte, lanza `/mcp-setup`.

@@ -6,6 +6,7 @@ Su contenido:
 
 - `changelog/` — historial de cambios de la propia plantilla (cómo ha ido evolucionando este
   andamiaje). No es el changelog de tu proyecto: ese vive en `changelog/`, en la raíz.
+- `assets/` — los GIF del `README.md` de la plantilla y los scripts que los generan.
 
 ## Si estás usando la plantilla para un proyecto
 

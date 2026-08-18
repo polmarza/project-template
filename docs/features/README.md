@@ -99,6 +99,10 @@ construcción* no exige que los archivos existan: los tests van después de impl
 
 Una fila puede declarar varios tests separándolos por comas.
 
+<p align="center">
+  <img src="../../.template/assets/excepcion.gif" alt="Ejecución real del script: la columna vacía falla; una excepción que dice solo 'no aplica' también falla; con la razón concreta y cómo se comprueba, pasa." width="820">
+</p>
+
 ---
 
 ## Estado de la ficha

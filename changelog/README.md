@@ -21,6 +21,7 @@ Usa `/changelog`. El agente crea el archivo con la fecha y hora reales y rellena
 
 **Fecha:** YYYY-MM-DD HH:MM
 **Tipo:** Feature / Fix / Refactor / Migración / Documentación / Configuración
+**Requisitos:** [IDs del PRD que cierra: M-01, S-02. "Ninguno" si es un cambio interno]
 
 ## Qué se hizo
 [Descripción de lo que se implementó o modificó]

@@ -23,12 +23,14 @@ Es agnóstica al stack. El protocolo funciona igual con Next.js, Astro, FastAPI 
 
 ## ¿Qué hay dentro?
 
-- **`CLAUDE.md`** — Contrato de entrada para el agente. Define qué leer, cómo registrar cambios, cómo configurar los MCPs del stack, qué no hacer y cuándo ejecutar revisiones de seguridad.
-- **`docs/`** — Ocho archivos vivos que capturan las decisiones que típicamente se pierden entre conversaciones: producto, arquitectura, modelo de datos, design system, business, roadmap, flujos de usuario y testing.
-- **`changelog/`** — Registro estructurado de cada cambio importante: qué, cuándo y por qué. **Llega vacío**: solo con el archivo que explica el formato.
+- **`CLAUDE.md`** — Contrato de entrada para el agente. Define qué leer, cómo se trabaja una feature, cómo registrar cambios, cómo configurar los MCPs del stack, qué no hacer y dónde están los límites de lo que puede ejecutar por su cuenta.
+- **`docs/`** — Ocho archivos vivos que capturan las decisiones que típicamente se pierden entre conversaciones: producto, arquitectura, modelo de datos, design system, business, roadmap, flujos de usuario y testing. **No todos aplican a todos los proyectos**: hay una tabla que decide cuáles según el tamaño.
+- **`docs/features/`** — Una ficha por unidad de trabajo acordada: qué se construye, qué requisitos cierra y **cómo se va a comprobar cada uno**. Es el contrato que se firma antes de escribir código. **Llega vacía**.
+- **`changelog/`** — Registro estructurado de cada cambio importante: qué, cuándo, por qué y qué requisitos cierra. **Llega vacío**: solo con el archivo que explica el formato.
 - **`mejoras/`** — Backlog de ideas que no entran en el sprint actual pero no se quieren perder.
-- **`.claude/`** — Configuración de Claude Code con permisos sensatos y slash commands custom para no tener que recordar el protocolo de memoria.
-- **`.github/`** — Plantillas de pull request e issues alineadas con el protocolo.
+- **`.claude/`** — Configuración de Claude Code con permisos sensatos y slash commands custom (`/feature`, `/changelog`, `/mejora`, `/doctor`, `/mcp-setup`, `/init-proyecto`) para no tener que recordar el protocolo de memoria.
+- **`scripts/`** — Una verificación ejecutable: comprueba que ninguna ficha deje un requisito sin validar y que los tests prometidos existan de verdad. Node sin dependencias.
+- **`.github/`** — Plantillas de pull request e issues alineadas con el protocolo, y el workflow que ejecuta esa verificación en cada PR. El PR pide **evidencia pegada**, no casillas marcadas.
 - **`.template/`** — Historial de la plantilla en sí. Se borra al inicializar tu proyecto, así no arrastras cambios que no son tuyos.
 - Lo aburrido pero necesario: `.gitignore`, `.env.example`, `LICENSE`.
 
@@ -36,12 +38,16 @@ Es agnóstica al stack. El protocolo funciona igual con Next.js, Astro, FastAPI 
 
 ## ¿Cómo funciona el protocolo?
 
-1. **Cualquier sesión empieza leyendo `docs/`.** Si están vacíos o incompletos, el agente pregunta antes de actuar.
-2. **Cada cambio importante deja registro en `changelog/`** con qué se hizo, qué se modificó y por qué.
-3. **Si el cambio afecta a algo documentado, se actualiza el doc en la misma sesión.** No hay documentación desincronizada.
-4. **Con el stack ya decidido, el agente pregunta qué MCPs quieres** y con qué alcance: los globales que ya tengas, o servidores configurados a nivel de proyecto en `.mcp.json`. No instala nada por su cuenta ni antes de que haya stack.
-5. **Antes de mergear a producción**, se ejecuta `/security-review` para detectar vulnerabilidades, credenciales filtradas y problemas comunes.
-6. **Las ideas que no entran ahora se anotan en `mejoras/`** sin interrumpir el flujo actual.
+1. **Cualquier sesión empieza leyendo `docs/`.** Si están vacíos o incompletos, el agente pregunta antes de actuar. Y no pide los ocho documentos: pide los que correspondan al tamaño del proyecto.
+2. **Cada funcionalidad del PRD lleva ID y criterio de aceptación comprobable.** "Dado…, cuando…, entonces…", con un resultado que se pueda mirar. Ese criterio es el que después se convierte en test.
+3. **Antes de construir una feature se escribe su ficha** en `docs/features/`, con una tabla que dice cómo se validará cada requisito. Ningún requisito se queda sin tercera columna: o lleva la ruta de su test, o lleva la razón concreta por la que no se puede testear así. **Y esto no es honor system**: un script lo verifica en cada PR, y falla si un test prometido no existe.
+4. **Los tests se escriben después de implementar**, leyendo el código real. Escritos antes apuntan a selectores imaginados, y acaban vaciándose de aserciones hasta que pasan.
+5. **Cada cambio importante deja registro en `changelog/`** con qué se hizo, qué se modificó, por qué y qué requisitos cierra.
+6. **Si el cambio afecta a algo documentado, se actualiza el doc en la misma sesión.** No hay documentación desincronizada.
+7. **Con el stack ya decidido, el agente pregunta qué MCPs quieres** y con qué alcance: los globales que ya tengas, o servidores configurados a nivel de proyecto en `.mcp.json`. No instala nada por su cuenta ni antes de que haya stack.
+8. **El PR se cierra con evidencia, no con casillas.** La salida real de los comandos va pegada en el PR; lo que no se ha ejecutado se dice.
+9. **Antes de mergear a producción**, se ejecuta `/security-review` para detectar vulnerabilidades, credenciales filtradas y problemas comunes.
+10. **Las ideas que no entran ahora se anotan en `mejoras/`** sin interrumpir el flujo actual.
 
 ---
 
@@ -50,8 +56,10 @@ Es agnóstica al stack. El protocolo funciona igual con Next.js, Astro, FastAPI 
 1. Usa este repo como plantilla en GitHub (botón **"Use this template"**) o clónalo directamente.
 2. Abre el proyecto en Claude Code, Cursor o el agente que prefieras.
 3. Cuando el agente lea `CLAUDE.md` por primera vez, te preguntará qué quieres construir y para quién. Responde y deja que vaya completando los docs contigo, uno a uno.
-4. Con los docs rellenos, el agente **inicializa el proyecto**: reescribe este README para tu producto, rellena los datos de `CLAUDE.md`, ajusta la licencia y `.env.example`, borra `.template/` y deja el changelog con su primera entrada real. Lo hace solo; si quieres forzarlo, usa `/init-proyecto`.
-5. A partir de ahí, arranca el desarrollo. Cada sesión nueva entra ya con todo el contexto cargado.
+4. Con los docs rellenos, el agente **inicializa el proyecto**: reescribe este README para tu producto, rellena los datos de `CLAUDE.md`, ajusta la licencia y `.env.example`, borra los documentos que tu proyecto no necesite y `.template/`, y deja el changelog con su primera entrada real. Lo hace solo; si quieres forzarlo, usa `/init-proyecto`.
+5. A partir de ahí, arranca el desarrollo. Cada feature empieza por su ficha (`/feature`) y termina con su evidencia. Cada sesión nueva entra ya con todo el contexto cargado.
+
+¿Algo no cuadra en cualquier momento? `/doctor` revisa documentación, fichas a medias, entorno, variables, MCPs y tests, y te dice qué falta y cómo arreglarlo.
 
 ---
 
@@ -72,6 +80,9 @@ No tienes que hacerlo a mano: el agente lo hace en la inicialización, siguiendo
 | `CLAUDE.md` | Se rellenan nombre, stack, estructura y convenciones |
 | `LICENSE` | Se sustituyen `[YEAR]` y `[AUTHOR]` |
 | `.env.example` | Se queda solo con las variables de tu stack |
+| `docs/` | Se borran los documentos que tu proyecto no necesita, según su tamaño |
+| `scripts/` | Se queda tal cual: la verificación no depende del stack |
+| `docs/features/` | Se queda vacía, lista para la primera ficha |
 | `changelog/` | Recibe la primera entrada real del proyecto |
 | `mejoras/backlog.md` | Se limpia el ejemplo |
 | `.template/` | Se borra |

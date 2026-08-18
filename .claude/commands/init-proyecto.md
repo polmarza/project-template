@@ -40,7 +40,8 @@ Ejecuta el checklist de "Inicialización del proyecto" de `CLAUDE.md`:
    de cada sesión se pare a preguntar por él. `docs/features/` se queda vacía, solo con su
    `README.md`.
 7. `mejoras/backlog.md` — borra el ejemplo comentado.
-8. `.template/` — bórrala (`rm -rf .template`).
+8. `.template/` — bórrala (`rm -rf .template`). Quita después las referencias a
+   `.template/assets/` que queden en otros archivos: hay una en `docs/features/README.md`.
 9. `changelog/` — crea la primera entrada real del proyecto (tipo: Configuración) con `/changelog`
    y limpia de `changelog/README.md` la referencia a la plantilla.
 10. Verifica que no queden restos:

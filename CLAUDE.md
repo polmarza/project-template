@@ -108,7 +108,8 @@ Puedes lanzar el proceso completo con `/init-proyecto`.
    `docs/features/` se queda como está: empieza sin fichas, solo con su `README.md`.
 8. **`mejoras/backlog.md`** — borra el ejemplo comentado y déjalo listo para entradas reales.
 9. **`.template/`** — bórrala entera (`rm -rf .template`). Es el historial de la plantilla, no
-   del proyecto.
+   del proyecto. Con ella se van también las imágenes del README, así que quita las referencias
+   que queden apuntando a `.template/assets/` (hay una en `docs/features/README.md`).
 10. **Verificación final** — busca referencias sobrantes:
     `grep -ril "plantilla\|template" . --exclude-dir=.git --exclude-dir=node_modules`.
     Revisa cada resultado y corrígelo si habla de la plantilla en lugar del proyecto.

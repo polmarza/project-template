@@ -16,6 +16,10 @@
   <a href="https://github.com/polmarza/project-template/generate"><strong>Usar esta plantilla →</strong></a>
 </p>
 
+<p align="center">
+  <img src=".template/assets/comparativa.gif" alt="Comparativa: sin plantilla, cada sesión empieza de cero y el trabajo se rehace; con plantilla, el agente lee la documentación, acuerda qué construir, lo valida y lo cierra con evidencia." width="900">
+</p>
+
 ---
 
 ## ¿Qué es esto?
@@ -52,16 +56,9 @@ Es agnóstica al stack. El protocolo funciona igual con Next.js, Astro, FastAPI 
 
 ## ¿Cómo funciona el protocolo?
 
-```mermaid
-flowchart LR
-    A["Requisito en docs/prd.md<br>con criterio de aceptación"]
-    B["Ficha de feature<br>Acordada"]
-    C["En construcción"]
-    D["Tests escritos<br>sobre el código real"]
-    E["Verificada"]
-    F["PR con evidencia<br>CI verifica la cobertura"]
-    A --> B --> C --> D --> E --> F
-```
+<p align="center">
+  <img src=".template/assets/flujo.gif" alt="El repositorio montándose fase a fase: los documentos se llenan durante la conversación, la carpeta de plantilla se borra al inicializar, aparece la ficha de feature y su estado avanza de Acordada a En construcción y a Verificada según llegan el código y los tests." width="900">
+</p>
 
 1. **Cualquier sesión empieza leyendo `docs/`.** Si están vacíos o incompletos, el agente pregunta antes de actuar. Y no pide los ocho documentos: pide los que correspondan al tamaño del proyecto.
 2. **Cada funcionalidad del PRD lleva ID y criterio de aceptación comprobable.** "Dado…, cuando…, entonces…", con un resultado que se pueda mirar. Ese criterio es el que después se convierte en test.
@@ -73,6 +70,20 @@ flowchart LR
 8. **El PR se cierra con evidencia, no con casillas.** La salida real de los comandos va pegada en el PR; lo que no se ha ejecutado se dice.
 9. **Antes de mergear a producción**, se ejecuta `/security-review` para detectar vulnerabilidades, credenciales filtradas y problemas comunes.
 10. **Las ideas que no entran ahora se anotan en `mejoras/`** sin interrumpir el flujo actual.
+
+### La regla que lo sostiene
+
+Ningún requisito se queda sin su tercera columna: **o lleva la ruta del test que lo valida, o lleva
+la razón concreta por la que no se puede validar así.** Y no es una norma de buena voluntad — hay
+un script que la comprueba, y corre en CI con cada pull request.
+
+La gracia está en cuándo aprieta y cuándo no. Mientras la ficha está en construcción no exige nada:
+los tests se escriben después de implementar. En el momento en que la das por **Verificada**, el
+test prometido tiene que existir.
+
+<p align="center">
+  <img src=".template/assets/cobertura.gif" alt="Ejecución real del script: con la ficha en construcción pasa sin quejarse aunque el test no exista; al marcarla como Verificada falla porque el test prometido no está; una vez escrito, vuelve a pasar." width="820">
+</p>
 
 ---
 

@@ -5,7 +5,7 @@
       "Bash(pnpm run *)",
       "Bash(pnpm dlx *)",
       "Bash(pnpm *)",
-      "Bash(node scripts/*)",
+      "Bash(node scripts/verificar-cobertura.mjs)",
       "Bash(node -v)",
       "Bash(node --version)",
       "Bash(claude mcp list)",

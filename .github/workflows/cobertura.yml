@@ -11,6 +11,11 @@ on:
   push:
     branches: [main]
 
+# El script solo lee archivos: no necesita escribir en el repositorio ni tocar nada
+# de la API. Acotarlo aquí limita el daño si una de las acciones se viera comprometida.
+permissions:
+  contents: read
+
 jobs:
   verificar:
     name: Tablas de cobertura

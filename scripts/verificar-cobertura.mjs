@@ -14,7 +14,7 @@
  */
 
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
-import { join, dirname, resolve } from 'node:path';
+import { join, dirname, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const RAIZ = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -158,12 +158,25 @@ function validarFicha(ficha, idsPrd) {
       continue;
     }
 
+    // Las fichas pueden llegar en un pull request, así que las rutas son entrada no
+    // confiable: se comprueba siempre que apunten dentro del repositorio, en cualquier
+    // estado, y no solo al cerrar la ficha.
+    const contenidas = [];
+    for (const ruta of rutas) {
+      const destino = resolve(RAIZ, ruta);
+      if (destino !== RAIZ && !destino.startsWith(RAIZ + sep)) {
+        fallo(rel, `${id}: la ruta ${ruta} apunta fuera del repositorio`);
+        continue;
+      }
+      contenidas.push({ ruta, destino });
+    }
+
     // La existencia solo se exige al cerrar: los tests se escriben después de implementar,
     // así que una ficha en construcción con el archivo aún sin crear es lo normal.
     if (!verificada) continue;
 
-    for (const ruta of rutas) {
-      if (!existsSync(join(RAIZ, ruta))) {
+    for (const { ruta, destino } of contenidas) {
+      if (!existsSync(destino)) {
         fallo(rel, `${id}: la ficha está Verificada pero ${ruta} no existe`);
       }
     }

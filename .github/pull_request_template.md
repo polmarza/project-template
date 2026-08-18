@@ -23,7 +23,11 @@
 
 <!-- Pega aquí el comando que has ejecutado y su salida real, recortada a lo relevante.
      No lo parafrasees: "los tests pasan" no es evidencia, la salida de los tests sí.
-     Si algo no se ha ejecutado, dilo y explica por qué en lugar de omitirlo. -->
+     Si algo no se ha ejecutado, dilo y explica por qué en lugar de omitirlo.
+
+     Repasa lo que pegas antes de enviarlo: la salida de un comando puede arrastrar tokens,
+     cadenas de conexión o rutas locales. Un PR es público o, como mínimo, permanente.
+     Sustituye cualquier valor sensible por su nombre de variable. -->
 
 ```
 $ pnpm test

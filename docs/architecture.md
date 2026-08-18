@@ -114,7 +114,12 @@ graph TD
 ## Estrategia de despliegue
 
 <!-- Describe el flujo desde desarrollo hasta producción.
-     Ramas, entornos (local / staging / producción), CI/CD si existe, variables de entorno por entorno. -->
+     Ramas, entornos (local / staging / producción), CI/CD si existe, variables de entorno por entorno.
+
+     Deja escrito también **quién despliega y con qué comando**. El agente no publica por su cuenta
+     (ver "Límites de ejecución" en CLAUDE.md): puede dejarlo todo preparado y explicado, pero el
+     botón lo pulsa una persona. Tener el procedimiento documentado aquí es lo que hace que esa
+     separación no cueste tiempo. -->
 
 ---
 

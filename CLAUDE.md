@@ -14,16 +14,61 @@ Antes de hacer cualquier cosa, comprueba el estado del repositorio:
    - No escribas código
    - No rellenes nada todavía
    - Empieza con esta pregunta: "¿Qué quieres construir y para quién?"
-   - A partir de la respuesta, haz las preguntas necesarias para completar 
-     los documentos de docs/ en este orden: prd.md → business.md → 
+   - Con la respuesta en la mano, decide **qué documentación necesita este proyecto** según la
+     tabla de la sección siguiente, y dilo antes de empezar a preguntar. No pidas ocho documentos
+     para una landing.
+   - Completa los documentos que apliquen en este orden: prd.md → business.md →
      design-system.md → architecture.md → data-model.md → roadmap.md → user-flows.md
    - Confirma con el usuario antes de pasar al siguiente documento
-   - Cuando todos estén rellenos, ejecuta la **inicialización del proyecto** (sección
+   - Cuando estén rellenos, ejecuta la **inicialización del proyecto** (sección
      siguiente) y solo después pregunta: "¿Empezamos a construir?"
 
 4. Si los documentos ya tienen contenido: lee todo lo que haya en `docs/` antes de actuar.
    Si además `.template/` sigue existiendo, la inicialización quedó a medias: avisa al usuario
    y ofrécete a completarla antes de seguir.
+
+5. Mira `docs/features/`. Si hay alguna ficha en estado **En construcción**, ahí está el trabajo a
+   medias: léela antes de proponer nada nuevo. Es más rápido y más fiable que reconstruir el
+   contexto a partir del historial de git.
+
+Si algo no cuadra (falta configuración, los tests no arrancan, hay fichas colgadas), `/doctor` da
+el parte completo del estado del proyecto y del entorno.
+
+---
+
+## Qué documentación necesita cada proyecto
+
+`docs/` tiene ocho archivos, pero **no todos los proyectos necesitan los ocho**. Pedirlos siempre
+es la forma más rápida de que el protocolo se abandone en la segunda semana: para una landing de
+una página, rellenar un modelo de datos y un plan de negocio es burocracia, y la burocracia inútil
+enseña a saltarse el proceso entero.
+
+Decide el tamaño al principio, dilo en voz alta y ajústate a la tabla:
+
+| Documento | Sitio pequeño | Producto | Producto con negocio detrás |
+|-----------|:-------------:|:--------:|:---------------------------:|
+| `prd.md` | Obligatorio | Obligatorio | Obligatorio |
+| `architecture.md` | Obligatorio | Obligatorio | Obligatorio |
+| `testing.md` | Si hay lógica | Obligatorio | Obligatorio |
+| `design-system.md` | Recomendado | Obligatorio | Obligatorio |
+| `data-model.md` | Si hay datos | Obligatorio | Obligatorio |
+| `roadmap.md` | — | Obligatorio | Obligatorio |
+| `user-flows.md` | — | Si hay flujos con estado | Obligatorio |
+| `business.md` | — | Si se monetiza | Obligatorio |
+
+- **Sitio pequeño:** landing, portfolio, sitio de contenido. Poca lógica, sin cuentas de usuario.
+- **Producto:** hay usuarios, estado y datos que persisten.
+- **Producto con negocio detrás:** además hay que cobrar, medir o justificar decisiones a alguien.
+
+Reglas de la tabla:
+
+- `prd.md` y `architecture.md` no se saltan nunca. Sin saber qué se construye y sobre qué, no hay
+  proyecto que documentar.
+- Un documento que no aplique **se borra**, no se deja vacío. Un archivo con solo comentarios es
+  indistinguible de uno que se olvidó rellenar, y el arranque de cada sesión se para a preguntar
+  por él.
+- El tamaño puede subir a mitad de camino. Cuando un sitio pequeño empieza a tener cuentas de
+  usuario, toca crear los documentos que faltan — en ese momento, no al final.
 
 ---
 
@@ -56,12 +101,15 @@ Puedes lanzar el proceso completo con `/init-proyecto`.
 6. **`changelog/`** — debe quedar sin entradas heredadas. Crea la primera entrada real del
    proyecto (tipo: Configuración) describiendo la inicialización, y quita de
    `changelog/README.md` la referencia a la plantilla (o borra el archivo).
-7. **`mejoras/backlog.md`** — borra el ejemplo comentado y déjalo listo para entradas reales.
-8. **`.template/`** — bórrala entera (`rm -rf .template`). Es el historial de la plantilla, no
+7. **`docs/`** — borra los archivos que este proyecto no necesite, según la tabla "Qué
+   documentación necesita cada proyecto". Un documento que no aplica se borra; no se deja vacío.
+   `docs/features/` se queda como está: empieza sin fichas, solo con su `README.md`.
+8. **`mejoras/backlog.md`** — borra el ejemplo comentado y déjalo listo para entradas reales.
+9. **`.template/`** — bórrala entera (`rm -rf .template`). Es el historial de la plantilla, no
    del proyecto.
-9. **Verificación final** — busca referencias sobrantes:
-   `grep -ril "plantilla\|template" . --exclude-dir=.git --exclude-dir=node_modules`.
-   Revisa cada resultado y corrígelo si habla de la plantilla en lugar del proyecto.
+10. **Verificación final** — busca referencias sobrantes:
+    `grep -ril "plantilla\|template" . --exclude-dir=.git --exclude-dir=node_modules`.
+    Revisa cada resultado y corrígelo si habla de la plantilla en lugar del proyecto.
 
 **Regla general:** después de la inicialización, ningún archivo del repo debe describirse a sí
 mismo como plantilla ni explicar cómo usar la plantilla. Toda la documentación habla del
@@ -183,7 +231,12 @@ es el comportamiento esperado, no un fallo.
 Lee todo lo que haya en `docs/` antes de empezar a trabajar. Si algún archivo está vacío
 (solo tiene comentarios) o incompleto, pregunta al usuario para rellenarlo antes de actuar.
 
-Si un archivo de `docs/` no existe todavía, pregunta antes de asumir.
+Si un archivo de `docs/` no existe, puede ser deliberado: la tabla "Qué documentación necesita cada
+proyecto" decide cuáles aplican, y los que no aplican se borran en lugar de dejarse vacíos.
+Compruébalo ahí antes de darlo por olvidado, y si sigue sin estar claro, pregunta.
+
+`docs/features/` es aparte: no describe el proyecto, sino cada unidad de trabajo acordada. Léela
+al empezar una sesión para saber qué hay en marcha (ver "Ciclo de trabajo de una feature").
 
 ---
 
@@ -218,6 +271,7 @@ Si un archivo de `docs/` no existe todavía, pregunta antes de asumir.
      └── types/        → tipos TypeScript compartidos
      
      docs/             → documentación del proyecto (ver sección anterior)
+     docs/features/    → fichas de las features acordadas, con su tabla de cobertura
      changelog/        → registro de cambios (ver protocolo más abajo)
      mejoras/          → ideas futuras no implementadas -->
 
@@ -256,7 +310,89 @@ Si un archivo de `docs/` no existe todavía, pregunta antes de asumir.
 - No instalar servidores MCP por tu cuenta: pregunta antes, según el "Protocolo de MCPs".
 - No ejecutar un `claude mcp add` copiado de una fuente que no sea el proveedor oficial, ni sin
   haberle enseñado antes el comando al usuario.
+- No dar por hecho lo que no has ejecutado. Si no has visto pasar el build o los tests, no digas
+  que pasan: di que no los has ejecutado.
+- No desactivar, saltar ni vaciar de aserciones un test para que deje de fallar.
 - <!-- ... -->
+
+---
+
+## Límites de ejecución
+
+Estas cuatro reglas no dependen del proyecto ni del stack, y no admiten excepción por prisa.
+
+**1. Todo se prueba en local.** Los tests se ejecutan siempre contra `localhost`. Nunca contra
+staging, nunca contra producción, nunca contra la máquina de nadie. Si la app no está levantada en
+local, el veredicto es "no verificado" — no se busca un entorno remoto como alternativa.
+
+**2. Desplegar no es tuyo.** No publiques, no hagas deploy, no reinicies servicios, no toques
+configuración de servidores ni ejecutes comandos en máquinas que no sean esta. Puedes preparar el
+despliegue, explicarlo y dejarlo listo; el botón lo pulsa el usuario. Si alguna vez se te autoriza
+explícitamente a lanzarlo, enseña antes qué vas a ejecutar y espera confirmación de esa vez
+concreta: una autorización no se hereda a la siguiente.
+
+**3. Los secretos no se imprimen ni se pasan por la línea de comandos.** Ni completos, ni
+recortados, ni "para confirmar que es el correcto". Viajan por variable de entorno o por cabecera.
+Un token en un argumento acaba en el historial del shell y en los logs del proceso, y de ahí no se
+borra. Cuando necesites referirte a uno, usa su nombre de variable.
+
+**4. Nada destructivo sin confirmación.** Borrar archivos o ramas, reescribir historial, tirar
+migraciones, vaciar tablas: se pregunta antes, con el alcance exacto de lo que va a desaparecer.
+Y antes de sobrescribir algo, míralo.
+
+---
+
+## Ciclo de trabajo de una feature
+
+Una feature es lo que se acuerda, se construye y se da por terminado de una vez. El ciclo es
+siempre el mismo:
+
+**1. Acordar.** Crea la ficha con `/feature`, siguiendo el formato de `docs/features/README.md`.
+La ficha declara qué se construye, qué requisitos del PRD cierra, qué queda fuera y —lo importante—
+cómo se va a validar cada requisito. Estado: **Acordada**. Enséñasela al usuario y espera su visto
+bueno antes de escribir código.
+
+**2. Construir.** Estado: **En construcción**. Mantenlo actualizado en el momento, no al final: es
+lo que permite retomar el trabajo en otra sesión sin reconstruir el contexto a mano.
+
+**3. Validar.** Con el código ya escrito, escribe los tests declarados en la tabla de cobertura
+(ver "Cuándo se escriben los tests" en `docs/testing.md`) y ejecútalos. Los requisitos marcados
+como no verificables por interfaz se comprueban por el medio que declare su ficha, y el resultado
+se anota igual.
+
+**4. Cerrar.** Con todo validado: estado **Verificada**, entrada de changelog, documentos de
+`docs/` afectados actualizados y PR con la evidencia pegada. Antes de abrir el PR, pasa la
+verificación de cobertura:
+
+```bash
+node scripts/verificar-cobertura.mjs
+```
+
+Para un arreglo puntual, un cambio de copy o un ajuste de estilos no hace falta ficha: basta la
+entrada de changelog al terminar. La ficha existe para conservar el acuerdo previo, y en un cambio
+pequeño no hay acuerdo previo que conservar.
+
+**La regla que sostiene todo esto:** ningún requisito de la tabla de cobertura se queda sin su
+tercera columna. O lleva la ruta del test que lo valida, o lleva
+`no verificable por interfaz: <razón concreta>` y cómo se comprueba entonces. Si no sabes cuál
+poner, pregunta — no lo dejes en blanco. Lo que se queda sin validar casi nunca se decide: se
+escurre, y nadie lo echa de menos hasta que falla.
+
+### La verificación de cobertura
+
+`scripts/verificar-cobertura.mjs` comprueba las tablas contra `docs/prd.md`: que ninguna fila se
+quede sin validación declarada, que las excepciones expliquen algo, que los identificadores
+existan y que **los tests prometidos existan de verdad** cuando la ficha dice estar Verificada.
+Mientras la ficha está *Acordada* o *En construcción* no exige que los archivos existan: los tests
+se escriben después de implementar, y hacerlo fallar antes solo enseñaría a ignorar los rojos.
+
+Corre también en CI con cada pull request, y eso no es redundancia: quien rellena la tabla es quien
+tendría que cumplirla, así que la comprobación vive donde no se pueda saltar. Si falla en CI, se
+arregla la causa — no se toca el workflow.
+
+Lo que verifica es estructural, no semántico: detecta el test que se prometió y no se escribió, no
+el test que no comprueba nada. Un archivo vacío pasaría la verificación. La diferencia es que un
+archivo vacío **sí se ve en el diff del PR**, y un archivo inexistente no.
 
 ---
 
@@ -276,6 +412,7 @@ Usa `/changelog` para crear la entrada siguiendo el formato del proyecto.
 
 **Fecha:** YYYY-MM-DD HH:MM
 **Tipo:** Feature / Fix / Refactor / Migración / Documentación / Configuración
+**Requisitos:** [IDs del PRD que cierra: M-01, S-02. "Ninguno" si es un cambio interno]
 
 ## Qué se hizo
 [Descripción de lo que se implementó o modificó]
@@ -301,8 +438,11 @@ Ejemplos:
 - Nueva tabla en Supabase → actualizar `docs/data-model.md`
 - Nuevo componente o patrón visual → actualizar `docs/design-system.md`
 - Cambio en la arquitectura de carpetas → actualizar `docs/architecture.md`
-- Nueva funcionalidad en scope → actualizar `docs/prd.md` y `docs/roadmap.md`
+- Nueva funcionalidad en scope → actualizar `docs/prd.md` y `docs/roadmap.md`, con su ID y su
+  criterio de aceptación
 - Nuevo servidor MCP configurado → actualizar `docs/architecture.md` (sección "MCPs del proyecto")
+- Feature terminada → poner su ficha de `docs/features/` en estado **Verificada**
+- Cambio de alcance a mitad de una feature → actualizar su tabla de cobertura, no solo el código
 
 ### 3. Actualizar README.md si aplica
 
@@ -331,11 +471,26 @@ Si por algún motivo abres el PR manualmente desde GitHub, tendrás que rellenar
 Cuando el agente crea un PR, debe rellenar la plantilla de `.github/pull_request_template.md` completa antes de enviarlo:
 
 1. Rellena las secciones `¿Qué se hizo?` y `Motivación` con el contexto real del cambio (no dejarlo en blanco ni con el placeholder).
-2. Marca con `[x]` la casilla correcta en `Tipo de cambio`. Usa las mismas categorías que el changelog: Feature, Fix, Refactor, Migración, Documentación o Configuración.
-3. Repasa el checklist y marca con `[x]` **solo lo que hayas verificado de verdad**. Si no has hecho algo, déjalo sin marcar.
-4. Si un punto del checklist no aplica (por ejemplo, no hay nada que probar en local para un cambio puramente de markdown), indícalo explícitamente en la descripción del PR en lugar de marcarlo a ciegas o dejarlo en silencio.
+2. Indica en `Requisitos que cierra` los IDs del PRD que este cambio deja terminados, o "ninguno" si es un cambio interno.
+3. Marca con `[x]` la casilla correcta en `Tipo de cambio`. Usa las mismas categorías que el changelog: Feature, Fix, Refactor, Migración, Documentación o Configuración.
+4. Rellena la sección `Evidencia` **pegando la salida real de los comandos que has ejecutado**, recortada a lo relevante. Y completa la tabla de verificación con un renglón por requisito, copiando lo que ya declaraste en la ficha de `docs/features/`.
+5. Repasa el checklist y marca con `[x]` **solo lo que hayas verificado de verdad**. Si no has hecho algo, déjalo sin marcar.
+6. Si un punto del checklist no aplica (por ejemplo, no hay nada que probar en local para un cambio puramente de markdown), indícalo explícitamente en la descripción del PR en lugar de marcarlo a ciegas o dejarlo en silencio.
 
-El checklist no es burocracia: es el último filtro para que documentación, changelog, pruebas y revisión de seguridad no se queden a medias cuando hay prisa por mergear.
+### Por qué la evidencia y no la casilla
+
+Un checklist lo marca quien hizo el trabajo, y con un agente de por medio eso significa que quien
+afirma haber verificado y quien tenía que verificar son el mismo. La casilla marcada no distingue
+entre "lo ejecuté y pasó" y "estoy razonablemente seguro de que pasaría". La salida de un comando
+sí: o está pegada o no está.
+
+Por eso la regla es literal — **pega la salida, no la parafrasees**. "Los tests pasan" no es
+evidencia; las últimas líneas de `pnpm test` sí. Y si algo no se ha ejecutado, escríbelo: un
+"no he ejecutado los e2e porque necesitan la base de datos sembrada" es información útil que
+permite decidir. Un silencio, no.
+
+El checklist tampoco es burocracia: es el último filtro para que documentación, changelog, pruebas
+y revisión de seguridad no se queden a medias cuando hay prisa por mergear.
 
 ---
 

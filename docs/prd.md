@@ -37,19 +37,49 @@
      - MUST: imprescindible para el MVP
      - SHOULD: importante pero no bloqueante
      - COULD: deseable si hay tiempo
-     - WON'T: explícitamente fuera de alcance en esta versión -->
+     - WON'T: explícitamente fuera de alcance en esta versión
+
+     Cada funcionalidad lleva dos cosas obligatorias:
+
+     1. UN IDENTIFICADOR ESTABLE — `M-01`, `S-01`, `C-01`. Es el nombre por el que la
+        funcionalidad se cita en el resto del repo: en la ficha de `docs/features/`, en el
+        changelog, en el PR y en el nombre del test. Nunca se reutiliza ni se renumera: si una
+        funcionalidad se cae, su ID se queda vacante.
+
+     2. UN CRITERIO DE ACEPTACIÓN COMPROBABLE — redactado como
+        "Dado [contexto], cuando [acción], entonces [resultado observable]".
+
+     El criterio no es literatura: es lo que después se convierte en aserción del test. Por eso
+     el "entonces" tiene que ser algo que se pueda mirar y decir sí o no (un mensaje visible, una
+     redirección, un registro creado), no un adjetivo. "Entonces la experiencia es fluida" no vale.
+     Añade el caso negativo siempre que el fallo sea previsible: es donde se esconden los bugs.
+
+     Sin criterio de aceptación, "hecho" acaba siendo una opinión, y con agentes de por medio
+     acaba siendo la del agente.
+
+     Ejemplo:
+
+     ### MUST
+     - **[M-01] Registro con email** — Dado un visitante sin cuenta, cuando envía un email válido
+       y una contraseña de 8+ caracteres, entonces recibe email de confirmación y accede al
+       dashboard vacío.
+       *Negativo:* dado un email ya registrado, cuando lo envía, entonces ve un error inline y no
+       se crea ninguna cuenta. -->
 
 ### MUST
-- <!-- ... -->
+- <!-- **[M-01] Título** — Dado ..., cuando ..., entonces ... -->
 
 ### SHOULD
-- <!-- ... -->
+- <!-- **[S-01] Título** — Dado ..., cuando ..., entonces ... -->
 
 ### COULD
-- <!-- ... -->
+- <!-- **[C-01] Título** — Dado ..., cuando ..., entonces ... -->
 
 ### WON'T (esta versión)
 - <!-- ... -->
+
+<!-- Las WON'T no llevan ID ni criterio: no se van a construir. Si alguna entra más adelante,
+     se le asigna ID nuevo al moverla de sección. -->
 
 ---
 

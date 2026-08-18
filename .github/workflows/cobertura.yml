@@ -1,0 +1,31 @@
+# Verifica que ninguna ficha de docs/features/ deje un requisito sin validación declarada,
+# y que los tests prometidos existan cuando la ficha dice estar Verificada.
+#
+# Se ejecuta en CI a propósito: el agente que rellena las tablas es el mismo que las cumpliría,
+# así que la comprobación tiene que vivir donde no pueda saltársela.
+
+name: Cobertura
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# El script solo lee archivos: no necesita escribir en el repositorio ni tocar nada
+# de la API. Acotarlo aquí limita el daño si una de las acciones se viera comprometida.
+permissions:
+  contents: read
+
+jobs:
+  verificar:
+    name: Tablas de cobertura
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Sin dependencias: el script usa solo módulos nativos de Node.
+      - run: node scripts/verificar-cobertura.mjs

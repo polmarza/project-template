@@ -5,7 +5,9 @@ Convierte esta plantilla en el repositorio del proyecto real. Es un proceso de u
 1. Lee todos los archivos de `docs/`.
 2. Si están vacíos o incompletos, **no inicialices todavía**: primero complétalos con el usuario
    siguiendo el orden de `CLAUDE.md` (prd.md → business.md → design-system.md → architecture.md →
-   data-model.md → roadmap.md → user-flows.md).
+   data-model.md → roadmap.md → user-flows.md). No hacen falta los ocho: mira antes la tabla "Qué
+   documentación necesita cada proyecto" de `CLAUDE.md` y pide solo los que apliquen al tamaño de
+   este proyecto.
 3. Si no existe `.template/`, el repo ya está inicializado. Dilo y no toques nada, salvo que el
    usuario pida rehacer algo concreto.
 
@@ -32,12 +34,18 @@ Ejecuta el checklist de "Inicialización del proyecto" de `CLAUDE.md`:
 4. `.env.example` — deja solo las variables del stack real.
 5. MCPs — pregunta qué servidores MCP quiere y con qué alcance, siguiendo el "Protocolo de MCPs"
    de `CLAUDE.md`. Si prefieres tratarlo aparte, lanza `/mcp-setup`.
-6. `mejoras/backlog.md` — borra el ejemplo comentado.
-7. `.template/` — bórrala (`rm -rf .template`).
-8. `changelog/` — crea la primera entrada real del proyecto (tipo: Configuración) con `/changelog`
+6. `docs/` — borra los documentos que este proyecto no necesite según la tabla de tamaños. Los que
+   no aplican se borran, no se dejan vacíos: un archivo con solo comentarios hace que el arranque
+   de cada sesión se pare a preguntar por él. `docs/features/` se queda vacía, solo con su
+   `README.md`.
+7. `mejoras/backlog.md` — borra el ejemplo comentado.
+8. `.template/` — bórrala (`rm -rf .template`).
+9. `changelog/` — crea la primera entrada real del proyecto (tipo: Configuración) con `/changelog`
    y limpia de `changelog/README.md` la referencia a la plantilla.
-9. Verifica que no queden restos:
-   `grep -ril "plantilla\|template" . --exclude-dir=.git --exclude-dir=node_modules`
+10. Verifica que no queden restos:
+    `grep -ril "plantilla\|template" . --exclude-dir=.git --exclude-dir=node_modules`
+11. Pasa `/doctor` como última comprobación: entorno, variables, MCPs y tests. Si algo sale en
+    FALLO, arréglalo antes de dar la inicialización por terminada.
 
 ## Al terminar
 

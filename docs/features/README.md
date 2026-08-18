@@ -95,7 +95,17 @@ node scripts/verificar-cobertura.mjs
 Detecta filas sin tercera columna, excepciones vacías de contenido ("no aplica" no cuela),
 identificadores que no existen en el PRD, y —lo más útil— **tests declarados que nunca se
 escribieron**, cuando la ficha ya dice estar Verificada. Mientras está *Acordada* o *En
-construcción* no exige que los archivos existan: los tests van después de implementar.
+construcción* no exige que los archivos existan: los tests van después de implementar, y hacerlo
+fallar antes solo enseñaría a ignorar los rojos.
+
+Lo que verifica es **estructural, no semántico**: detecta el test que se prometió y no se escribió,
+no el test que no comprueba nada. Un archivo vacío pasaría la verificación. La diferencia es que un
+archivo vacío **sí se ve en el diff del PR**, y un archivo inexistente no. El suelo sube; no
+desaparece el criterio.
+
+Corre también en CI con cada pull request, y eso no es redundancia: quien rellena la tabla es quien
+tendría que cumplirla, así que la comprobación vive donde no se pueda saltar. Si falla en CI, se
+arregla la causa — no se toca el workflow.
 
 Una fila puede declarar varios tests separándolos por comas.
 

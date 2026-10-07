@@ -31,8 +31,10 @@ Antes de hacer cualquier cosa, comprueba el estado del repositorio:
    medias: léela antes de proponer nada nuevo. Es más rápido y más fiable que reconstruir el
    contexto a partir del historial de git.
 
-Si algo no cuadra (falta configuración, los tests no arrancan, hay fichas colgadas), `/doctor` da
-el parte completo del estado del proyecto y del entorno.
+Si algo no cuadra (falta configuración, los tests no arrancan, hay fichas colgadas),
+`/diagnostico` da el parte completo del estado del proyecto y del entorno. El `/doctor` nativo de
+Claude Code es otra cosa: revisa la instalación del agente y, con `/doctor prompt-audit`, si este
+archivo y las skills tienen instrucciones desfasadas o contradictorias.
 
 ---
 
@@ -78,41 +80,9 @@ Esta plantilla se distribuye con documentación que habla **de la plantilla**, n
 En cuanto los documentos de `docs/` estén rellenos, conviértela en el repo de *este* proyecto.
 Hazlo por iniciativa propia, sin esperar a que el usuario lo pida.
 
-Puedes lanzar el proceso completo con `/init-proyecto`.
-
-**Checklist de inicialización:**
-
-1. **`README.md`** — reescríbelo entero para el proyecto, a partir de lo que hay en `docs/`.
-   Debe explicar el producto, no la plantilla. Estructura sugerida: nombre y descripción de
-   una línea, qué problema resuelve, requisitos previos, variables de entorno (referencia a
-   `.env.example`), instalación y desarrollo (`pnpm install`, `pnpm dev`), estructura de
-   carpetas, cómo contribuir (referencia a `CLAUDE.md` y al protocolo) y estado del proyecto.
-   Los badges de la cabecera apuntan al repositorio de la plantilla: quítalos o repóntalos al
-   tuyo, o quedarán enseñando el estado de un repo que no es este.
-2. **`CLAUDE.md`** — rellena los placeholders de este mismo archivo: nombre, descripción,
-   estado, stack tecnológico, estructura de carpetas, convenciones de código y "Qué NO hacer".
-   Borra los comentarios `<!-- ... -->` que ya no apliquen, esta sección de inicialización
-   (deja de tener sentido una vez hecha), el comando `.claude/commands/init-proyecto.md` y las
-   referencias a `.template/` del arranque y del protocolo de changelog. El "Protocolo de MCPs"
-   se queda: sigue aplicando cada vez que entre una integración nueva.
-3. **`LICENSE`** — la plantilla se distribuye con el copyright de su autor. Sustituye esa línea
-   por el año actual y el titular de *este* proyecto. Pregunta el nombre si no lo sabes.
-4. **`.env.example`** — deja solo las variables que el stack elegido necesita de verdad.
-5. **MCPs** — con el stack ya decidido, pregunta al usuario qué servidores MCP quiere y con qué
-   alcance, siguiendo el "Protocolo de MCPs" (o lanza `/mcp-setup`).
-6. **`changelog/`** — debe quedar sin entradas heredadas. Crea la primera entrada real del
-   proyecto (tipo: Configuración) describiendo la inicialización, y quita de
-   `changelog/README.md` la referencia a la plantilla (o borra el archivo).
-7. **`docs/`** — borra los archivos que este proyecto no necesite, según la tabla "Qué
-   documentación necesita cada proyecto". Un documento que no aplica se borra; no se deja vacío.
-   `docs/features/` se queda como está: empieza sin fichas, solo con su `README.md`.
-8. **`mejoras/backlog.md`** — borra el ejemplo comentado y déjalo listo para entradas reales.
-9. **`.template/`** — bórrala entera (`rm -rf .template`). Es el historial de la plantilla, no
-   del proyecto. Con ella se van también las imágenes del README, así que quita las referencias
-   que queden apuntando a `.template/assets/` (hay una en `docs/features/README.md`).
-10. **Verificación final** — busca referencias sobrantes:
-    `grep -ril "plantilla\|template" . --exclude-dir=.git --exclude-dir=node_modules`.
-    Revisa cada resultado y corrígelo si habla de la plantilla en lugar del proyecto.
+El checklist completo —README, `CLAUDE.md`, licencia, `.env.example`, MCPs, documentos que sobran,
+changelog y borrado de `.template/`— vive en la skill **`/init-proyecto`**. Cárgala y síguela
+entera; no la reconstruyas de memoria.
 
 **Regla general:** después de la inicialización, ningún archivo del repo debe describirse a sí
 mismo como plantilla ni explicar cómo usar la plantilla. Toda la documentación habla del
@@ -251,6 +221,9 @@ al empezar una sesión para saber qué hay en marcha (ver "Ciclo de trabajo de u
 - No dar por hecho lo que no has ejecutado. Si no has visto pasar el build o los tests, no digas
   que pasan: di que no los has ejecutado.
 - No desactivar, saltar ni vaciar de aserciones un test para que deje de fallar.
+- No meter procedimientos en este archivo ni crear archivos en `.claude/commands/` (formato
+  heredado). Un procedimiento nuevo es una skill en `.claude/skills/<nombre>/SKILL.md`, con una
+  `description` que diga qué hace y cuándo usarla: Claude la carga sola cuando toca.
 - <!-- ... -->
 
 ---

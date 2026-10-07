@@ -1,6 +1,11 @@
+---
+name: mcp-setup
+description: Configura los servidores MCP del proyecto según el stack de docs/architecture.md, preguntando alcance (user/project/local) y credenciales y comprobando la fuente oficial de cada servidor. Úsala al terminar docs/architecture.md o cuando entre una integración nueva (Supabase, Stripe, Vercel, Resend, Sentry…).
+---
+
 Configura los servidores MCP de este proyecto según el stack definido en `docs/architecture.md`.
 
-Sigue el "Protocolo de MCPs" de `CLAUDE.md`. Este comando lo lanza a demanda; el flujo normal es
+Sigue el "Protocolo de MCPs" de `CLAUDE.md`. Esta skill lo lanza a demanda; el flujo normal es
 que se ejecute solo al terminar la arquitectura o al añadir una integración nueva.
 
 ## 1. Contexto

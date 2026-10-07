@@ -1,3 +1,9 @@
+---
+name: changelog
+description: Crea una entrada en changelog/ con el formato del proyecto (qué se hizo, qué se modificó, por qué y qué requisitos del PRD cierra). Úsala al terminar cualquier cambio importante —feature, fix, refactor, migración o configuración—, como pide el "Protocolo de cambios" de CLAUDE.md.
+argument-hint: "[cambio que registrar]"
+---
+
 Crea una nueva entrada en `changelog/` siguiendo el protocolo del proyecto.
 
 1. Usa la fecha y hora actuales para nombrar el archivo: `YYYY-MM-DD_HH-MM_descripcion-breve.md`
@@ -7,4 +13,4 @@ Crea una nueva entrada en `changelog/` siguiendo el protocolo del proyecto.
 5. Si el cambio cierra una feature, comprueba que su ficha de `docs/features/` está en estado **Verificada** antes de escribir la entrada.
 6. Si el cambio afecta algún documento de `docs/`, recuérdale al usuario que hay que actualizarlo en esta misma sesión.
 
-Si existe la carpeta `.template/` y el cambio es sobre la plantilla en sí (CLAUDE.md, docs vacíos, comandos, plantillas de GitHub), escribe la entrada en `.template/changelog/` en lugar de `changelog/`. La carpeta `changelog/` se reserva para el proyecto que use la plantilla.
+Si existe la carpeta `.template/` y el cambio es sobre la plantilla en sí (CLAUDE.md, docs vacíos, skills, plantillas de GitHub), escribe la entrada en `.template/changelog/` en lugar de `changelog/`. La carpeta `changelog/` se reserva para el proyecto que use la plantilla.

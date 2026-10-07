@@ -1,3 +1,9 @@
+---
+name: feature
+description: Crea la ficha de una feature en docs/features/, con su tabla de cobertura, antes de escribir código. Úsala cuando se acuerde construir algo que cierra requisitos del PRD, toca varias capas o va a durar más de una sesión. No hace falta para un arreglo puntual, un cambio de copy o un ajuste de estilos.
+argument-hint: "[nombre-de-la-feature]"
+---
+
 Crea la ficha de una feature nueva en `docs/features/`, siguiendo el formato de
 `docs/features/README.md`.
 

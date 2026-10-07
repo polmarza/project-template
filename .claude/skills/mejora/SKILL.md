@@ -1,3 +1,9 @@
+---
+name: mejora
+description: Añade una idea al backlog de mejoras/backlog.md sin interrumpir el trabajo en curso. Úsala cuando surja una idea que no entra en la tarea o el sprint actual y no se quiere perder.
+argument-hint: "[título de la mejora]"
+---
+
 Añade una nueva idea al backlog en `mejoras/backlog.md`.
 
 Pregunta al usuario lo siguiente si no lo ha indicado ya:

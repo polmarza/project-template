@@ -87,7 +87,7 @@ graph TD
 ## MCPs del proyecto
 
 <!-- Servidores MCP configurados para trabajar con este proyecto desde el agente de código.
-     Rellenar al configurarlos (ver "Protocolo de MCPs" en CLAUDE.md o el comando /mcp-setup).
+     Rellenar al configurarlos (ver "Protocolo de MCPs" en CLAUDE.md o la skill /mcp-setup).
 
      Alcances posibles:
      - user     → global del usuario, no vive en el repo

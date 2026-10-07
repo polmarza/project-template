@@ -7,68 +7,34 @@ Lee este archivo completo antes de hacer cualquier cambio.
 
 Antes de hacer cualquier cosa, comprueba el estado del repositorio:
 
-1. Lee todos los archivos de `docs/`
-2. Comprueba si existe la carpeta `.template/`. Si existe, este repo sigue siendo la plantilla
-   sin inicializar: hay andamiaje, todavía no hay proyecto.
-3. Si los documentos están vacíos o incompletos (solo tienen comentarios, sin contenido real):
-   - No escribas código
-   - No rellenes nada todavía
-   - Empieza con esta pregunta: "¿Qué quieres construir y para quién?"
-   - Con la respuesta en la mano, decide **qué documentación necesita este proyecto** según la
-     tabla de la sección siguiente, y dilo antes de empezar a preguntar. No pidas ocho documentos
-     para una landing.
-   - Completa los documentos que apliquen en este orden: prd.md → business.md →
-     design-system.md → architecture.md → data-model.md → roadmap.md → user-flows.md
-   - Confirma con el usuario antes de pasar al siguiente documento
-   - Cuando estén rellenos, ejecuta la **inicialización del proyecto** (sección
-     siguiente) y solo después pregunta: "¿Empezamos a construir?"
+1. Lee todos los archivos de `docs/`.
+2. **Si existe `.template/`, o si los documentos están vacíos o solo tienen comentarios**, el
+   proyecto no está inicializado. No escribas código ni rellenes nada por tu cuenta: carga
+   **`/init-proyecto`** y síguela. Si había contenido y `.template/` sigue ahí, la inicialización
+   quedó a medias: avisa al usuario y ofrécete a completarla.
+3. Mira `docs/features/`. Si hay alguna ficha en estado **En construcción**, ahí está el trabajo a
+   medias: léela antes de proponer nada nuevo.
 
-4. Si los documentos ya tienen contenido: lee todo lo que haya en `docs/` antes de actuar.
-   Si además `.template/` sigue existiendo, la inicialización quedó a medias: avisa al usuario
-   y ofrécete a completarla antes de seguir.
-
-5. Mira `docs/features/`. Si hay alguna ficha en estado **En construcción**, ahí está el trabajo a
-   medias: léela antes de proponer nada nuevo. Es más rápido y más fiable que reconstruir el
-   contexto a partir del historial de git.
-
-Si algo no cuadra (falta configuración, los tests no arrancan, hay fichas colgadas), `/doctor` da
-el parte completo del estado del proyecto y del entorno.
+Si algo no cuadra (falta configuración, los tests no arrancan, hay fichas colgadas),
+`/diagnostico` da el parte completo del estado del proyecto y del entorno. El `/doctor` nativo de
+Claude Code es otra cosa: revisa la instalación del agente y, con `/doctor prompt-audit`, si este
+archivo y las skills tienen instrucciones desfasadas o contradictorias.
 
 ---
 
-## Qué documentación necesita cada proyecto
+## Documentación
 
-`docs/` tiene ocho archivos, pero **no todos los proyectos necesitan los ocho**. Pedirlos siempre
-es la forma más rápida de que el protocolo se abandone en la segunda semana: para una landing de
-una página, rellenar un modelo de datos y un plan de negocio es burocracia, y la burocracia inútil
-enseña a saltarse el proceso entero.
+`docs/` tiene ocho archivos, pero **no todos los proyectos necesitan los ocho**; qué documentos
+aplican según el tamaño y en qué orden se rellenan está en **`/documentacion`**.
 
-Decide el tamaño al principio, dilo en voz alta y ajústate a la tabla:
+- `prd.md` y `architecture.md` no se saltan nunca.
+- Un documento que no aplique **se borra**, no se deja vacío: un archivo con solo comentarios es
+  indistinguible de uno que se olvidó rellenar. Si falta uno en `docs/`, comprueba antes en
+  `/documentacion` si es deliberado.
+- Si el proyecto crece (un sitio pequeño que gana cuentas de usuario), crea los documentos que
+  faltan en ese momento, no al final.
 
-| Documento | Sitio pequeño | Producto | Producto con negocio detrás |
-|-----------|:-------------:|:--------:|:---------------------------:|
-| `prd.md` | Obligatorio | Obligatorio | Obligatorio |
-| `architecture.md` | Obligatorio | Obligatorio | Obligatorio |
-| `testing.md` | Si hay lógica | Obligatorio | Obligatorio |
-| `design-system.md` | Recomendado | Obligatorio | Obligatorio |
-| `data-model.md` | Si hay datos | Obligatorio | Obligatorio |
-| `roadmap.md` | — | Obligatorio | Obligatorio |
-| `user-flows.md` | — | Si hay flujos con estado | Obligatorio |
-| `business.md` | — | Si se monetiza | Obligatorio |
-
-- **Sitio pequeño:** landing, portfolio, sitio de contenido. Poca lógica, sin cuentas de usuario.
-- **Producto:** hay usuarios, estado y datos que persisten.
-- **Producto con negocio detrás:** además hay que cobrar, medir o justificar decisiones a alguien.
-
-Reglas de la tabla:
-
-- `prd.md` y `architecture.md` no se saltan nunca. Sin saber qué se construye y sobre qué, no hay
-  proyecto que documentar.
-- Un documento que no aplique **se borra**, no se deja vacío. Un archivo con solo comentarios es
-  indistinguible de uno que se olvidó rellenar, y el arranque de cada sesión se para a preguntar
-  por él.
-- El tamaño puede subir a mitad de camino. Cuando un sitio pequeño empieza a tener cuentas de
-  usuario, toca crear los documentos que faltan — en ese momento, no al final.
+`docs/features/` es aparte: no describe el proyecto, sino cada unidad de trabajo acordada.
 
 ---
 
@@ -78,41 +44,9 @@ Esta plantilla se distribuye con documentación que habla **de la plantilla**, n
 En cuanto los documentos de `docs/` estén rellenos, conviértela en el repo de *este* proyecto.
 Hazlo por iniciativa propia, sin esperar a que el usuario lo pida.
 
-Puedes lanzar el proceso completo con `/init-proyecto`.
-
-**Checklist de inicialización:**
-
-1. **`README.md`** — reescríbelo entero para el proyecto, a partir de lo que hay en `docs/`.
-   Debe explicar el producto, no la plantilla. Estructura sugerida: nombre y descripción de
-   una línea, qué problema resuelve, requisitos previos, variables de entorno (referencia a
-   `.env.example`), instalación y desarrollo (`pnpm install`, `pnpm dev`), estructura de
-   carpetas, cómo contribuir (referencia a `CLAUDE.md` y al protocolo) y estado del proyecto.
-   Los badges de la cabecera apuntan al repositorio de la plantilla: quítalos o repóntalos al
-   tuyo, o quedarán enseñando el estado de un repo que no es este.
-2. **`CLAUDE.md`** — rellena los placeholders de este mismo archivo: nombre, descripción,
-   estado, stack tecnológico, estructura de carpetas, convenciones de código y "Qué NO hacer".
-   Borra los comentarios `<!-- ... -->` que ya no apliquen, esta sección de inicialización
-   (deja de tener sentido una vez hecha), el comando `.claude/commands/init-proyecto.md` y las
-   referencias a `.template/` del arranque y del protocolo de changelog. El "Protocolo de MCPs"
-   se queda: sigue aplicando cada vez que entre una integración nueva.
-3. **`LICENSE`** — la plantilla se distribuye con el copyright de su autor. Sustituye esa línea
-   por el año actual y el titular de *este* proyecto. Pregunta el nombre si no lo sabes.
-4. **`.env.example`** — deja solo las variables que el stack elegido necesita de verdad.
-5. **MCPs** — con el stack ya decidido, pregunta al usuario qué servidores MCP quiere y con qué
-   alcance, siguiendo el "Protocolo de MCPs" (o lanza `/mcp-setup`).
-6. **`changelog/`** — debe quedar sin entradas heredadas. Crea la primera entrada real del
-   proyecto (tipo: Configuración) describiendo la inicialización, y quita de
-   `changelog/README.md` la referencia a la plantilla (o borra el archivo).
-7. **`docs/`** — borra los archivos que este proyecto no necesite, según la tabla "Qué
-   documentación necesita cada proyecto". Un documento que no aplica se borra; no se deja vacío.
-   `docs/features/` se queda como está: empieza sin fichas, solo con su `README.md`.
-8. **`mejoras/backlog.md`** — borra el ejemplo comentado y déjalo listo para entradas reales.
-9. **`.template/`** — bórrala entera (`rm -rf .template`). Es el historial de la plantilla, no
-   del proyecto. Con ella se van también las imágenes del README, así que quita las referencias
-   que queden apuntando a `.template/assets/` (hay una en `docs/features/README.md`).
-10. **Verificación final** — busca referencias sobrantes:
-    `grep -ril "plantilla\|template" . --exclude-dir=.git --exclude-dir=node_modules`.
-    Revisa cada resultado y corrígelo si habla de la plantilla en lugar del proyecto.
+El proceso entero —rellenar `docs/` y después README, `CLAUDE.md`, licencia, `.env.example`, MCPs,
+changelog y borrado de `.template/`— vive en la skill **`/init-proyecto`**. Cárgala y síguela
+entera; no la reconstruyas de memoria.
 
 **Regla general:** después de la inicialización, ningún archivo del repo debe describirse a sí
 mismo como plantilla ni explicar cómo usar la plantilla. Toda la documentación habla del
@@ -161,20 +95,6 @@ El procedimiento completo —comprobar lo ya configurado, elegir alcance (`user`
 **Nombre:** <!-- nombre-del-proyecto -->
 **Descripción:** <!-- una frase -->
 **Estado actual:** <!-- En desarrollo / Beta / Producción -->
-
----
-
-## Documentación de referencia
-
-Lee todo lo que haya en `docs/` antes de empezar a trabajar. Si algún archivo está vacío
-(solo tiene comentarios) o incompleto, pregunta al usuario para rellenarlo antes de actuar.
-
-Si un archivo de `docs/` no existe, puede ser deliberado: la tabla "Qué documentación necesita cada
-proyecto" decide cuáles aplican, y los que no aplican se borran en lugar de dejarse vacíos.
-Compruébalo ahí antes de darlo por olvidado, y si sigue sin estar claro, pregunta.
-
-`docs/features/` es aparte: no describe el proyecto, sino cada unidad de trabajo acordada. Léela
-al empezar una sesión para saber qué hay en marcha (ver "Ciclo de trabajo de una feature").
 
 ---
 
@@ -251,6 +171,9 @@ al empezar una sesión para saber qué hay en marcha (ver "Ciclo de trabajo de u
 - No dar por hecho lo que no has ejecutado. Si no has visto pasar el build o los tests, no digas
   que pasan: di que no los has ejecutado.
 - No desactivar, saltar ni vaciar de aserciones un test para que deje de fallar.
+- No meter procedimientos en este archivo ni crear archivos en `.claude/commands/` (formato
+  heredado). Un procedimiento nuevo es una skill en `.claude/skills/<nombre>/SKILL.md`, con una
+  `description` que diga qué hace y cuándo usarla: Claude la carga sola cuando toca.
 - <!-- ... -->
 
 ---
@@ -282,72 +205,45 @@ Y antes de sobrescribir algo, míralo.
 
 ## Ciclo de trabajo de una feature
 
-Una feature es lo que se acuerda, se construye y se da por terminado de una vez. Cuatro tiempos, y
-la ficha de `docs/features/` va marcando en cuál estás:
+Una feature es lo que se acuerda, se construye y se da por terminado de una vez. Su ficha en
+`docs/features/` marca en cuál de estos cuatro tiempos estás, y se actualiza en el momento, no al
+final:
 
-1. **Acordar** — `/feature` crea la ficha: qué se construye, qué requisitos del PRD cierra, qué
-   queda fuera y cómo se validará cada uno. Estado **Acordada**. Espera el visto bueno del usuario
+1. **Acordar** — `/feature` crea la ficha (estado **Acordada**). Espera el visto bueno del usuario
    antes de escribir código.
-2. **Construir** — estado **En construcción**, actualizado en el momento y no al final: es lo que
-   permite retomar el trabajo en otra sesión sin reconstruir el contexto a mano.
-3. **Validar** — con el código escrito, los tests declarados en la tabla (ver "Cuándo se escriben
-   los tests" en `docs/testing.md`). Estado **Verificada**.
-4. **Cerrar** — entrada de changelog, documentos de `docs/` afectados al día, y PR con la evidencia
-   pegada. Antes de abrirlo: `node scripts/verificar-cobertura.mjs`.
+2. **Construir** — **En construcción**.
+3. **Validar** — con el código escrito, los tests declarados en la tabla. **Verificada**.
+4. **Cerrar** — changelog, `docs/` al día y PR con la evidencia. Antes: `node scripts/verificar-cobertura.mjs`.
 
-**Cuándo no hace falta ficha:** un arreglo puntual, un cambio de copy, un ajuste de estilos. Basta
-la entrada de changelog al terminar. La ficha existe para conservar el acuerdo previo, y ahí no hay
-acuerdo previo que conservar.
+No hace falta ficha para un arreglo puntual, un cambio de copy o un ajuste de estilos: basta el
+changelog.
 
 **La regla que lo sostiene:** ningún requisito de la tabla de cobertura se queda sin su tercera
-columna. O lleva la ruta del test que lo valida, o lleva `no verificable por interfaz: <razón
-concreta>` y cómo se comprueba entonces. Si no sabes cuál poner, pregunta — no lo dejes en blanco.
-Lo que se queda sin validar casi nunca se decide: se escurre, y nadie lo echa de menos hasta que
-falla. `scripts/verificar-cobertura.mjs` lo comprueba, y corre en CI con cada pull request.
-
-El formato de la ficha, los tres estados y el detalle de qué valida el script están en
-**`docs/features/README.md`**.
+columna. O lleva la ruta del test que lo valida, o `no verificable por interfaz: <razón concreta>`
+y cómo se comprueba entonces. Si no sabes cuál poner, pregunta — no lo dejes en blanco. El formato
+y el detalle de qué valida el script están en `docs/features/README.md`.
 
 ---
 
-## Protocolo de cambios (obligatorio)
+## Protocolo de cambios y pull requests
 
 Cada vez que hagas un cambio importante:
 
-1. **Entrada en `changelog/`**, con `/changelog`. Mientras el repo siga siendo la plantilla sin
-   inicializar (existe `.template/`), los cambios sobre el andamiaje van a `.template/changelog/`,
-   para que quien use la plantilla arranque con el changelog limpio. El formato está en
-   `changelog/README.md`.
-2. **Actualiza la documentación que el cambio deja desfasada, en la misma sesión.** Tabla nueva →
-   `docs/data-model.md`. Patrón visual nuevo → `docs/design-system.md`. Cambio de estructura o
-   servidor MCP → `docs/architecture.md`. Alcance nuevo → `docs/prd.md` y `docs/roadmap.md`, con su
-   ID y su criterio de aceptación. Feature terminada → su ficha a **Verificada**. Alcance que
-   cambia a mitad de feature → su tabla de cobertura, no solo el código.
-3. **`README.md`**, si el cambio afecta a cómo se instala, inicializa o usa el proyecto. Describe
-   siempre el proyecto en su estado actual.
-4. **`/security-review`** antes de mergear a producción, o cuando el usuario lo pida.
+1. **Entrada en `changelog/`**, con `/changelog`. Mientras exista `.template/`, los cambios sobre el
+   andamiaje van a `.template/changelog/`.
+2. **Actualiza en la misma sesión la documentación que el cambio deja desfasada:** `docs/` (datos,
+   diseño, arquitectura o MCP, PRD y roadmap si el alcance cambia), la ficha de la feature
+   (**Verificada** al cerrarla, y su tabla si el alcance cambia a mitad) y el `README.md` si
+   cambia cómo se instala o usa el proyecto.
+3. **`/security-review`** antes de mergear a producción, o cuando el usuario lo pida.
 
----
+**Los PRs los crea el agente, no el usuario**: así la plantilla llega rellena. Rellena
+`.github/pull_request_template.md` **entera**; lleva las instrucciones de cada sección. Dos reglas
+que no se negocian:
 
-## Protocolo de pull requests
-
-**Los PRs los crea el agente, no el usuario**: así la plantilla llega rellena y el checklist
-verificado. Basta con pedírselo. Si abres el PR a mano desde GitHub, tendrás que rellenarlo tú — es
-comportamiento normal de GitHub, no un fallo del flujo.
-
-Rellena `.github/pull_request_template.md` **entera** antes de enviarla; el propio archivo lleva
-las instrucciones de cada sección. Dos reglas que no se negocian:
-
-- **Pega la salida real de los comandos, no la parafrasees.** "Los tests pasan" no es evidencia;
-  las últimas líneas de `pnpm test` sí.
+- **Pega la salida real de los comandos, no la parafrasees.** "Los tests pasan" no es evidencia.
 - **Marca solo lo que hayas verificado de verdad.** Lo que no aplique o no hayas ejecutado, se
-  explica en la descripción. Un punto sin marcar y justificado es información útil; uno marcado a
-  ciegas tapa el problema.
-
-**Por qué evidencia y no casillas:** un checklist lo marca quien hizo el trabajo, y con un agente
-de por medio quien afirma haber verificado y quien tenía que verificar son el mismo. La casilla no
-distingue entre "lo ejecuté y pasó" y "estoy bastante seguro de que pasaría". La salida de un
-comando sí: o está pegada o no está.
+  explica en la descripción.
 
 ---
 

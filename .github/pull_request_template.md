@@ -22,7 +22,9 @@
 ## Evidencia
 
 <!-- Pega aquí el comando que has ejecutado y su salida real, recortada a lo relevante.
-     No lo parafrasees: "los tests pasan" no es evidencia, la salida de los tests sí.
+     No lo parafrasees: "los tests pasan" no es evidencia, la salida de los tests sí. Se pide
+     salida y no casillas porque quien marca el checklist es quien hizo el trabajo, y una casilla
+     no distingue entre "lo ejecuté y pasó" y "estoy bastante seguro de que pasaría".
      Si algo no se ha ejecutado, dilo y explica por qué en lugar de omitirlo.
 
      Repasa lo que pegas antes de enviarlo: la salida de un comando puede arrastrar tokens,

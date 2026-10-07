@@ -46,7 +46,7 @@ Es agnóstica al stack. El protocolo funciona igual con Next.js, Astro, FastAPI 
 - **`docs/features/`** — Una ficha por unidad de trabajo acordada: qué se construye, qué requisitos cierra y **cómo se va a comprobar cada uno**. Es el contrato que se firma antes de escribir código. **Llega vacía**.
 - **`changelog/`** — Registro estructurado de cada cambio importante: qué, cuándo, por qué y qué requisitos cierra. **Llega vacío**: solo con el archivo que explica el formato.
 - **`mejoras/`** — Backlog de ideas que no entran en el sprint actual pero no se quieren perder.
-- **`.claude/`** — Configuración de Claude Code con permisos sensatos y slash commands custom, para no tener que recordar el protocolo de memoria.
+- **`.claude/`** — Configuración de Claude Code con permisos sensatos y siete skills (`.claude/skills/`) que llevan los procedimientos del protocolo. Se lanzan con `/nombre`, y el agente también las carga solo cuando la tarea encaja con su descripción.
 - **`scripts/`** — Una verificación ejecutable: comprueba que ninguna ficha deje un requisito sin validar y que los tests prometidos existan de verdad. Node sin dependencias.
 - **`.github/`** — Plantillas de pull request e issues alineadas con el protocolo, y el workflow que ejecuta esa verificación en cada PR. El PR pide **evidencia pegada**, no casillas marcadas.
 - **`.template/`** — Historial de la plantilla en sí. Se borra al inicializar tu proyecto, así no arrastras cambios que no son tuyos.
@@ -87,16 +87,19 @@ test prometido tiene que existir.
 
 ---
 
-## Comandos
+## Skills
 
-| Comando | Qué hace |
+Cada una vive en `.claude/skills/<nombre>/SKILL.md`. Las invocas tú con `/nombre`, o el agente las carga por su cuenta cuando lo que estás haciendo encaja con la `description` de su cabecera: no hace falta acordarse de lanzarlas.
+
+| Skill | Qué hace |
 |---------|----------|
 | `/feature` | Crea la ficha de una feature **antes** de construirla, con su tabla de cobertura |
 | `/changelog` | Registra un cambio con el formato del proyecto |
 | `/mejora` | Añade una idea al backlog sin romper el flujo de trabajo |
-| `/doctor` | Parte del estado: documentación, fichas a medias, entorno, variables, MCPs y tests |
+| `/diagnostico` | Parte del estado: documentación, fichas a medias, entorno, variables, MCPs y tests |
 | `/mcp-setup` | Configura los servidores MCP del stack, preguntando alcance y credenciales |
-| `/init-proyecto` | Convierte la plantilla en el repositorio de tu proyecto (una sola vez) |
+| `/documentacion` | Decide qué documentos de `docs/` necesita tu proyecto según su tamaño y en qué orden se rellenan |
+| `/init-proyecto` | Arranca el proyecto: rellena `docs/` contigo y convierte la plantilla en tu repositorio (una sola vez) |
 
 ---
 
@@ -108,7 +111,7 @@ test prometido tiene que existir.
 4. Con los docs rellenos, el agente **inicializa el proyecto**: reescribe este README para tu producto, rellena los datos de `CLAUDE.md`, ajusta la licencia y `.env.example`, borra los documentos que tu proyecto no necesite y `.template/`, y deja el changelog con su primera entrada real. Lo hace solo; si quieres forzarlo, usa `/init-proyecto`.
 5. A partir de ahí, arranca el desarrollo. Cada feature empieza por su ficha (`/feature`) y termina con su evidencia. Cada sesión nueva entra ya con todo el contexto cargado.
 
-¿Algo no cuadra en cualquier momento? `/doctor` revisa documentación, fichas a medias, entorno, variables, MCPs y tests, y te dice qué falta y cómo arreglarlo.
+¿Algo no cuadra en cualquier momento? `/diagnostico` revisa documentación, fichas a medias, entorno, variables, MCPs y tests, y te dice qué falta y cómo arreglarlo. Para problemas del propio Claude Code, o para auditar si `CLAUDE.md` y las skills se han quedado desfasados, está su `/doctor` nativo (`/doctor prompt-audit`).
 
 ---
 
@@ -121,7 +124,7 @@ test prometido tiene que existir.
 
 ## Adaptar para tu proyecto
 
-No tienes que hacerlo a mano: el agente lo hace en la inicialización, siguiendo el checklist de la sección "Inicialización del proyecto" de `CLAUDE.md`. Lo que cambia:
+No tienes que hacerlo a mano: el agente lo hace en la inicialización, siguiendo el checklist de la skill `/init-proyecto`. Lo que cambia:
 
 | Archivo | Qué pasa con él |
 |---------|-----------------|
@@ -135,6 +138,7 @@ No tienes que hacerlo a mano: el agente lo hace en la inicialización, siguiendo
 | `changelog/` | Recibe la primera entrada real del proyecto |
 | `mejoras/backlog.md` | Se limpia el ejemplo |
 | `.template/` | Se borra |
+| `.claude/skills/init-proyecto/` | Se borra: la inicialización solo se hace una vez |
 
 El criterio es simple: cuando termina la inicialización, **ningún archivo del repo se describe a sí mismo como plantilla**. Todo habla de tu proyecto.
 

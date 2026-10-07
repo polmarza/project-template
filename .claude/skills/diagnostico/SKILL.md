@@ -1,3 +1,8 @@
+---
+name: diagnostico
+description: Parte de solo lectura del estado del proyecto y del entorno —documentos obligatorios, fichas de feature a medias, cobertura, Node y pnpm, variables de entorno, servidores MCP y tests—, con la corrección propuesta para cada fallo. Úsala al entrar al proyecto por primera vez, antes de una sesión larga o cuando algo falle sin motivo aparente. No arregla nada por su cuenta.
+---
+
 Revisa el estado del proyecto y del entorno, y da un parte de qué está bien, qué falta y cómo
 arreglarlo. **Solo diagnostica: no arregla nada por su cuenta.** Al terminar, propón las
 correcciones y deja que el usuario decida cuáles aplicar.
@@ -5,12 +10,16 @@ correcciones y deja que el usuario decida cuáles aplicar.
 Ejecútalo cuando alguien entra al proyecto por primera vez, cuando algo falla sin motivo aparente
 o antes de una sesión larga, para no descubrir a mitad que faltaba media configuración.
 
+No es el `/doctor` de Claude Code. Ese revisa la instalación de Claude Code, el coste en contexto de
+skills y MCPs, y la calidad de los `CLAUDE.md` (`/doctor prompt-audit`); este revisa el proyecto.
+Se complementan: si el problema parece del agente y no del repo, sugiere `/doctor`.
+
 ## Qué comprobar
 
 ### 1. Documentación
 
-- ¿Existen todos los archivos que `CLAUDE.md` marca como obligatorios para este proyecto? (La
-  obligatoriedad depende del tamaño: mira la tabla "Qué documentación necesita cada proyecto".)
+- ¿Existen todos los archivos de `docs/` que son obligatorios para este proyecto? (Depende del
+  tamaño: mira la tabla de la skill `/documentacion`.)
 - ¿Alguno está vacío — solo comentarios `<!-- -->`, sin contenido real?
 - ¿Sigue existiendo `.template/`? Entonces la inicialización quedó a medias.
 

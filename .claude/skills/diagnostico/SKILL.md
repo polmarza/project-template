@@ -18,8 +18,8 @@ Se complementan: si el problema parece del agente y no del repo, sugiere `/docto
 
 ### 1. Documentación
 
-- ¿Existen todos los archivos que `CLAUDE.md` marca como obligatorios para este proyecto? (La
-  obligatoriedad depende del tamaño: mira la tabla "Qué documentación necesita cada proyecto".)
+- ¿Existen todos los archivos de `docs/` que son obligatorios para este proyecto? (Depende del
+  tamaño: mira la tabla de la skill `/documentacion`.)
 - ¿Alguno está vacío — solo comentarios `<!-- -->`, sin contenido real?
 - ¿Sigue existiendo `.template/`? Entonces la inicialización quedó a medias.
 

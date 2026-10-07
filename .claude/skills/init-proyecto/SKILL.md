@@ -1,6 +1,6 @@
 ---
 name: init-proyecto
-description: Convierte la plantilla en el repositorio del proyecto real, una sola vez —README, CLAUDE.md, LICENSE, .env.example, MCPs, docs/ que no aplican, changelog y borrado de .template/—. Úsala cuando los documentos de docs/ estén rellenos y la carpeta .template/ siga existiendo.
+description: Arranque de un proyecto nuevo a partir de la plantilla, de principio a fin y una sola vez. Primero rellena docs/ con el usuario (empezando por "¿Qué quieres construir y para quién?") y después convierte el repo en el del proyecto real —README, CLAUDE.md, LICENSE, .env.example, MCPs, changelog y borrado de .template/—. Úsala cuando exista la carpeta .template/, o cuando docs/ esté vacío o solo tenga comentarios.
 ---
 
 Convierte esta plantilla en el repositorio del proyecto real. Es un proceso de una sola vez.
@@ -8,13 +8,15 @@ Convierte esta plantilla en el repositorio del proyecto real. Es un proceso de u
 ## Antes de empezar
 
 1. Lee todos los archivos de `docs/`.
-2. Si están vacíos o incompletos, **no inicialices todavía**: primero complétalos con el usuario
-   siguiendo el orden de `CLAUDE.md` (prd.md → business.md → design-system.md → architecture.md →
-   data-model.md → roadmap.md → user-flows.md). No hacen falta los ocho: mira antes la tabla "Qué
-   documentación necesita cada proyecto" de `CLAUDE.md` y pide solo los que apliquen al tamaño de
-   este proyecto.
-3. Si no existe `.template/`, el repo ya está inicializado. Dilo y no toques nada, salvo que el
-   usuario pida rehacer algo concreto.
+2. Si no existe `.template/` y los documentos tienen contenido, el repo ya está inicializado. Dilo
+   y no toques nada, salvo que el usuario pida rehacer algo concreto.
+3. Si los documentos están vacíos o incompletos (solo comentarios, sin contenido real), **no
+   escribas código ni inicialices todavía**:
+   - Pregunta: "¿Qué quieres construir y para quién?"
+   - Con la respuesta, carga `/documentacion`: decide qué documentos necesita el proyecto, dilo
+     antes de empezar a preguntar y rellénalos en el orden que indica, confirmando cada uno.
+4. Con los documentos rellenos, sigue con lo de abajo. Cuando termines, pregunta "¿Empezamos a
+   construir?"; no antes.
 
 ## Datos que necesitas
 
@@ -38,18 +40,18 @@ los placeholders y los ejemplos que vas a sustituir.
    apuntan al repositorio de la plantilla: quítalos o repóntalos al del proyecto.
 2. **`CLAUDE.md`** — rellena nombre, descripción, estado, stack, estructura de carpetas,
    convenciones y "Qué NO hacer". El contenido real va fuera de los comentarios, o el agente no lo
-   verá. Borra los comentarios que ya no apliquen, la sección "Inicialización del proyecto" y las
-   referencias a `.template/` del arranque y del protocolo de cambios. **El "Protocolo de MCPs" se
+   verá. Borra los comentarios que ya no apliquen, la sección "Inicialización del proyecto", el
+   paso 2 de "Estado del proyecto y arranque" (el de `.template/` y los docs vacíos, renumerando
+   el siguiente) y la mención a `.template/` del protocolo de cambios. **El "Protocolo de MCPs" se
    queda**: sigue aplicando cada vez que entre una integración nueva.
 3. **`LICENSE`** — sustituye la línea de copyright de la plantilla por el año actual y el titular
    de este proyecto.
 4. **`.env.example`** — deja solo las variables que el stack elegido necesita de verdad.
 5. **MCPs** — pregunta qué servidores MCP quiere y con qué alcance, siguiendo el "Protocolo de
    MCPs" de `CLAUDE.md`. Si prefieres tratarlo aparte, lanza `/mcp-setup`.
-6. **`docs/`** — borra los documentos que este proyecto no necesite según la tabla "Qué
-   documentación necesita cada proyecto". Los que no aplican se borran, no se dejan vacíos: un
-   archivo con solo comentarios hace que el arranque de cada sesión se pare a preguntar por él.
-   `docs/features/` se queda vacía, solo con su `README.md`.
+6. **`docs/`** — borra los documentos que este proyecto no necesite, según `/documentacion`. Los
+   que no aplican se borran, no se dejan vacíos. `docs/features/` se queda vacía, solo con su
+   `README.md`.
 7. **`mejoras/backlog.md`** — borra el ejemplo comentado y déjalo listo para entradas reales.
 8. **Borrados** — `.template/` entera (es el historial de la plantilla, no del proyecto) y esta
    misma skill, `.claude/skills/init-proyecto/`, que deja de tener sentido una vez hecha. Enseña

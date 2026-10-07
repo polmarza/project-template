@@ -46,7 +46,7 @@ Es agnóstica al stack. El protocolo funciona igual con Next.js, Astro, FastAPI 
 - **`docs/features/`** — Una ficha por unidad de trabajo acordada: qué se construye, qué requisitos cierra y **cómo se va a comprobar cada uno**. Es el contrato que se firma antes de escribir código. **Llega vacía**.
 - **`changelog/`** — Registro estructurado de cada cambio importante: qué, cuándo, por qué y qué requisitos cierra. **Llega vacío**: solo con el archivo que explica el formato.
 - **`mejoras/`** — Backlog de ideas que no entran en el sprint actual pero no se quieren perder.
-- **`.claude/`** — Configuración de Claude Code con permisos sensatos y seis skills (`.claude/skills/`) que llevan los procedimientos del protocolo. Se lanzan con `/nombre`, y el agente también las carga solo cuando la tarea encaja con su descripción.
+- **`.claude/`** — Configuración de Claude Code con permisos sensatos y siete skills (`.claude/skills/`) que llevan los procedimientos del protocolo. Se lanzan con `/nombre`, y el agente también las carga solo cuando la tarea encaja con su descripción.
 - **`scripts/`** — Una verificación ejecutable: comprueba que ninguna ficha deje un requisito sin validar y que los tests prometidos existan de verdad. Node sin dependencias.
 - **`.github/`** — Plantillas de pull request e issues alineadas con el protocolo, y el workflow que ejecuta esa verificación en cada PR. El PR pide **evidencia pegada**, no casillas marcadas.
 - **`.template/`** — Historial de la plantilla en sí. Se borra al inicializar tu proyecto, así no arrastras cambios que no son tuyos.
@@ -98,7 +98,8 @@ Cada una vive en `.claude/skills/<nombre>/SKILL.md`. Las invocas tú con `/nombr
 | `/mejora` | Añade una idea al backlog sin romper el flujo de trabajo |
 | `/diagnostico` | Parte del estado: documentación, fichas a medias, entorno, variables, MCPs y tests |
 | `/mcp-setup` | Configura los servidores MCP del stack, preguntando alcance y credenciales |
-| `/init-proyecto` | Convierte la plantilla en el repositorio de tu proyecto (una sola vez) |
+| `/documentacion` | Decide qué documentos de `docs/` necesita tu proyecto según su tamaño y en qué orden se rellenan |
+| `/init-proyecto` | Arranca el proyecto: rellena `docs/` contigo y convierte la plantilla en tu repositorio (una sola vez) |
 
 ---
 

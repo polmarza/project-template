@@ -27,6 +27,10 @@ coinciden con la realidad, casi nadie reescribe el test — se le van quitando a
 pasa, y acaba siendo un test que no comprueba nada pero que da luz verde. Escrito después, apunta
 a lo que hay.
 
+Las filas que se validan con `revisión humana:` se hacen en esa misma pasada, en local, siguiendo
+lo que dice la tabla: qué se mira y qué tiene que verse. El resultado va al PR igual que la salida
+de los tests.
+
 Reglas que se derivan de eso:
 
 - **Antes de escribir una aserción, verifica que el selector existe en el código.** No lo

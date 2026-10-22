@@ -6,8 +6,12 @@
  * validación declarada, que los identificadores existan, y que los tests prometidos existan
  * de verdad cuando la ficha dice estar Verificada.
  *
- * Lo que NO comprueba: que el test valide lo que dice validar, ni que la razón de una excepción
- * sea honesta. Esto detecta la promesa incumplida, no el trabajo mal hecho.
+ * La tercera columna admite tres formas: la ruta de un test, una revisión humana que diga qué
+ * se mira y qué tiene que verse, o una excepción justificada.
+ *
+ * Lo que NO comprueba: que el test valide lo que dice validar, que la revisión humana se haya
+ * hecho, ni que la razón de una excepción sea honesta. Esto detecta la promesa incumplida, no
+ * el trabajo mal hecho.
  *
  * Uso:  node scripts/verificar-cobertura.mjs
  * Sale con código 1 si hay fallos. Los avisos no rompen la ejecución.
@@ -24,6 +28,9 @@ const FICHAS = join(RAIZ, 'docs', 'features');
 const ESTADOS = ['Acordada', 'En construcción', 'Verificada'];
 const EXCEPCION = 'no verificable por interfaz:';
 const RAZON_MINIMA = 15;
+// La revisión humana se escribe como `revisión humana: <qué se mira>; <qué tiene que verse>`.
+const REVISION = /^revisi[oó]n humana:/i;
+const PARTE_MINIMA = 8;
 
 const fallos = [];
 const avisos = [];
@@ -136,8 +143,21 @@ function validarFicha(ficha, idsPrd) {
 
     // ── La regla de la tercera columna ──
     if (!validacion) {
-      fallo(rel, `${id}: la columna "Se valida con" está vacía. Escribe la ruta del test o ` +
+      fallo(rel, `${id}: la columna "Se valida con" está vacía. Escribe la ruta del test, ` +
+                 `"revisión humana: <qué se mira>; <qué tiene que verse>" o ` +
                  `"${EXCEPCION} <razón concreta>"`);
+      continue;
+    }
+
+    // Una revisión humana no tiene archivo que comprobar, así que lo único que se puede exigir
+    // es que diga las dos cosas que la hacen repetible: qué se mira y qué tiene que verse.
+    if (REVISION.test(validacion)) {
+      const partes = validacion.replace(REVISION, '').split(';').map((s) => s.trim());
+      const [mira = '', debeVerse = ''] = partes;
+      if (partes.length < 2 || mira.length < PARTE_MINIMA || debeVerse.length < PARTE_MINIMA) {
+        fallo(rel, `${id}: la revisión humana tiene que decir qué se mira y qué tiene que verse, ` +
+                   `separados por punto y coma: "revisión humana: <qué se mira>; <qué tiene que verse>"`);
+      }
       continue;
     }
 
@@ -154,7 +174,8 @@ function validarFicha(ficha, idsPrd) {
     const pareceRuta = rutas.every((r) => r.includes('/') || r.includes('.'));
 
     if (!pareceRuta) {
-      fallo(rel, `${id}: "${validacion}" no es ni una ruta de test ni una excepción justificada`);
+      fallo(rel, `${id}: "${validacion}" no es una ruta de test, una revisión humana ni una ` +
+                 `excepción justificada`);
       continue;
     }
 

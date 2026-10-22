@@ -219,16 +219,19 @@ final:
 2. **Construir** — **En construcción**. Una fila de la tabla de cobertura cada vez: implementa ese
    requisito, di qué has cambiado y cómo verlo funcionando, y para. La siguiente fila empieza con
    el visto bueno del usuario, salvo que te pida avanzar varias seguidas.
-3. **Validar** — con el código escrito, los tests declarados en la tabla. **Verificada**.
+3. **Validar** — con el código escrito, los tests y las revisiones humanas declarados en la tabla.
+   **Verificada**.
 4. **Cerrar** — changelog, `docs/` al día y PR con la evidencia. Antes: `node scripts/verificar-cobertura.mjs`.
 
 No hace falta ficha para un arreglo puntual, un cambio de copy o un ajuste de estilos: basta el
 changelog.
 
 **La regla que lo sostiene:** ningún requisito de la tabla de cobertura se queda sin su tercera
-columna. O lleva la ruta del test que lo valida, o `no verificable por interfaz: <razón concreta>`
-y cómo se comprueba entonces. Si no sabes cuál poner, pregunta — no lo dejes en blanco. El formato
-y el detalle de qué valida el script están en `docs/features/README.md`.
+columna. Lleva una de tres cosas: la ruta del test que lo valida; `revisión humana: <qué se mira>;
+<qué tiene que verse>`, para lo que se comprueba mejor con los ojos que con un test; o
+`no verificable por interfaz: <razón concreta>` y cómo se comprueba entonces. Si no sabes cuál
+poner, pregunta — no lo dejes en blanco. El formato y el detalle de qué valida el script están en
+`docs/features/README.md`.
 
 ---
 

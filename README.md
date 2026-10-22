@@ -63,7 +63,7 @@ Es agnóstica al stack. El protocolo funciona igual con Next.js, Astro, FastAPI 
 
 1. **Cualquier sesión empieza leyendo `docs/`.** Si están vacíos o incompletos, el agente pregunta antes de actuar. Y no pide los ocho documentos: pide los que correspondan al tamaño del proyecto.
 2. **Cada funcionalidad del PRD lleva ID y criterio de aceptación comprobable.** "Dado…, cuando…, entonces…", con un resultado que se pueda mirar. Ese criterio es el que después se convierte en test.
-3. **Antes de construir una feature se escribe su ficha** en `docs/features/`, con una tabla que dice cómo se validará cada requisito. Antes de darla por acordada, el agente la revisa como un QA: ambigüedades, contradicciones y casos límite sin cubrir, sin proponer soluciones, para que las resuelvas tú. Después se construye **una fila de la tabla cada vez**, y el agente para a enseñarte cada una. Ningún requisito se queda sin tercera columna: o lleva la ruta de su test, o lleva la razón concreta por la que no se puede testear así. **Y esto no es honor system**: un script lo verifica en cada PR, y falla si un test prometido no existe.
+3. **Antes de construir una feature se escribe su ficha** en `docs/features/`, con una tabla que dice cómo se validará cada requisito. Antes de darla por acordada, el agente la revisa como un QA: ambigüedades, contradicciones y casos límite sin cubrir, sin proponer soluciones, para que las resuelvas tú. Después se construye **una fila de la tabla cada vez**, y el agente para a enseñarte cada una. Ningún requisito se queda sin tercera columna: o lleva la ruta de su test, o una revisión humana que dice qué se mira y qué tiene que verse, o la razón concreta por la que no se puede validar de ninguna de las dos formas. **Y esto no es honor system**: un script lo verifica en cada PR, y falla si un test prometido no existe.
 4. **Los tests se escriben después de implementar**, leyendo el código real. Escritos antes apuntan a selectores imaginados, y acaban vaciándose de aserciones hasta que pasan.
 5. **Cada cambio importante deja registro en `changelog/`** con qué se hizo, qué se modificó, por qué y qué requisitos cierra.
 6. **Si el cambio afecta a algo documentado, se actualiza el doc en la misma sesión.** No hay documentación desincronizada.
@@ -74,8 +74,9 @@ Es agnóstica al stack. El protocolo funciona igual con Next.js, Astro, FastAPI 
 
 ### La regla que lo sostiene
 
-Ningún requisito se queda sin su tercera columna: **o lleva la ruta del test que lo valida, o lleva
-la razón concreta por la que no se puede validar así.** Y no es una norma de buena voluntad — hay
+Ningún requisito se queda sin su tercera columna: **o lleva la ruta del test que lo valida, o una
+revisión humana que dice qué se mira y qué tiene que verse, o la razón concreta por la que no se
+puede validar de ninguna de las dos formas.** Y no es una norma de buena voluntad — hay
 un script que la comprueba, y corre en CI con cada pull request.
 
 La gracia está en cuándo aprieta y cuándo no. Mientras la ficha está en construcción no exige nada:

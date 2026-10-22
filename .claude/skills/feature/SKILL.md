@@ -38,9 +38,18 @@ Lee también `docs/architecture.md` y `docs/data-model.md` si la feature toca es
 Usa la plantilla de `docs/features/README.md`. Estado inicial: **Acordada**.
 
 La tabla de cobertura se rellena entera, sin huecos. Por cada requisito, la tercera columna lleva
-o la ruta del test que lo validará, o `no verificable por interfaz: <razón concreta>` seguido de
-cómo se comprobará entonces. Si no sabes cuál de las dos poner, pregunta — no lo dejes en blanco
-ni escribas un test que sabes que no vas a escribir.
+una de tres cosas:
+
+- La ruta del test que lo validará.
+- `revisión humana: <qué se mira>; <qué tiene que verse>`, cuando se comprueba mejor con los ojos
+  que con un test: cómo se ve una pantalla, cómo suena una conversación. Las dos partes, concretas:
+  otra persona tiene que poder repetirla.
+- `no verificable por interfaz: <razón concreta>` seguido de cómo se comprobará entonces, para lo
+  que no tiene interfaz que mirar (un índice, una variable de entorno).
+
+Si no sabes cuál poner, pregunta — no lo dejes en blanco ni escribas un test que sabes que no vas
+a escribir. Y no uses la revisión humana para lo que un test cubriría bien: el test se repite solo
+en cada PR; la revisión depende de que alguien la haga.
 
 ## 5. Revísala como un QA antes de enseñarla
 

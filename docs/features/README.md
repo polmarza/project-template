@@ -54,6 +54,7 @@ que llevarla a `docs/` en la misma sesión.
 | Requisito | Se implementa en | Se valida con |
 |-----------|------------------|---------------|
 | M-01 | `src/app/(auth)/registro/` | `tests/registro.spec.ts` |
+| M-02 | `src/components/chat/` | revisión humana: el chat en la vista previa a tamaño móvil; se lee sin desplazar en horizontal |
 | M-03 | migración `002_indices` | no verificable por interfaz: índice de BD, se comprueba con `EXPLAIN` antes del PR |
 
 ## Fuera de esta feature
@@ -70,15 +71,21 @@ Todo lo demás de la ficha es contexto. La tabla es el contrato, y tiene una sol
 
 > **Ningún requisito se queda sin una tercera columna rellena.**
 
-Hay exactamente dos formas válidas de rellenarla:
+Hay exactamente tres formas válidas de rellenarla:
 
 - **La ruta del test que lo valida.** No hace falta que el test exista todavía cuando se escribe la
   ficha — se escribe después de implementar (ver `docs/testing.md`). Lo que se declara aquí es el
   compromiso de que existirá.
-- **`no verificable por interfaz: <razón concreta>` + cómo se comprueba entonces.** La excepción es
-  legítima: un índice de base de datos, una variable de entorno o un cambio de estilos no se testean
-  con un test de interfaz. Pero la razón se escribe, y se escribe concreta. "No aplica" no es una
-  razón. "No me dio tiempo" tampoco: eso es un test pendiente, no una excepción.
+- **`revisión humana: <qué se mira>; <qué tiene que verse>`.** Hay requisitos que se comprueban
+  mejor con los ojos que con un test: que el chat se lea en el móvil, que una conversación concreta
+  fluya como se acordó, que una pantalla se vea como dice el design system. Es tan válida como un
+  test con una condición: **dice qué se mira y qué tiene que verse**, de forma que otra persona
+  pueda repetirla y llegar a la misma conclusión. "Lo he mirado y está bien" no es una revisión.
+  Se hace en la pasada de validación, en local, y el PR dice que se hizo y qué se vio.
+- **`no verificable por interfaz: <razón concreta>` + cómo se comprueba entonces.** Para lo que no
+  tiene interfaz que mirar ni test que lo cubra: un índice de base de datos, una variable de
+  entorno. La razón se escribe, y se escribe concreta. "No aplica" no es una razón. "No me dio
+  tiempo" tampoco: eso es un test pendiente, no una excepción.
 
 El motivo de tanta insistencia: lo que se queda sin validar rara vez se decide, se *escurre*. Nadie
 dice "este requisito no lo vamos a comprobar"; simplemente no aparece en ningún sitio y nadie lo
@@ -93,13 +100,15 @@ node scripts/verificar-cobertura.mjs
 ```
 
 Detecta filas sin tercera columna, excepciones vacías de contenido ("no aplica" no cuela),
-identificadores que no existen en el PRD, y —lo más útil— **tests declarados que nunca se
+revisiones humanas que no dicen qué se mira y qué tiene que verse, identificadores que no existen
+en el PRD, y —lo más útil— **tests declarados que nunca se
 escribieron**, cuando la ficha ya dice estar Verificada. Mientras está *Acordada* o *En
 construcción* no exige que los archivos existan: los tests van después de implementar, y hacerlo
 fallar antes solo enseñaría a ignorar los rojos.
 
 Lo que verifica es **estructural, no semántico**: detecta el test que se prometió y no se escribió,
-no el test que no comprueba nada. Un archivo vacío pasaría la verificación. La diferencia es que un
+no el test que no comprueba nada. Un archivo vacío pasaría la verificación, y una revisión humana
+bien escrita pasaría aunque nadie la hubiera hecho: por eso el PR la declara. La diferencia es que un
 archivo vacío **sí se ve en el diff del PR**, y un archivo inexistente no. El suelo sube; no
 desaparece el criterio.
 

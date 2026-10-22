@@ -39,7 +39,9 @@ $ pnpm test
 **Verificación de los requisitos:**
 
 <!-- Un renglón por cada requisito de la sección anterior. Si el requisito no se valida con un
-     test, di con qué se ha comprobado. Copia lo que ya declaraste en la ficha de docs/features/. -->
+     test, di con qué se ha comprobado. Copia lo que ya declaraste en la ficha de docs/features/.
+     Para una revisión humana: quién la hizo, qué se miró y qué se vio. Si no se ha hecho, dilo:
+     una revisión declarada en la ficha y no hecha es un requisito sin validar. -->
 
 | Requisito | Se validó con | Resultado |
 |-----------|---------------|-----------|

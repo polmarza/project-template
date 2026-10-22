@@ -11,7 +11,7 @@ Ejecútalo cuando alguien entra al proyecto por primera vez, cuando algo falla s
 o antes de una sesión larga, para no descubrir a mitad que faltaba media configuración.
 
 No es el `/doctor` de Claude Code. Ese revisa la instalación de Claude Code, el coste en contexto de
-skills y MCPs, y la calidad de los `CLAUDE.md` (`/doctor prompt-audit`); este revisa el proyecto.
+skills y MCPs, y la calidad de las instrucciones (`/doctor prompt-audit`); este revisa el proyecto.
 Se complementan: si el problema parece del agente y no del repo, sugiere `/doctor`.
 
 ## Qué comprobar
@@ -43,7 +43,7 @@ Añade a mano lo que el script no mira, porque requiere criterio:
 
 ### 3. Entorno
 
-- Versión de Node y de pnpm frente a lo que declare `CLAUDE.md`. Si no coinciden, dilo: la mayoría
+- Versión de Node y de pnpm frente a lo que declare `AGENTS.md`. Si no coinciden, dilo: la mayoría
   de fallos raros de instalación son esto.
 - ¿Están las dependencias instaladas (`node_modules/`)? ¿El lockfile está al día respecto a
   `package.json`?

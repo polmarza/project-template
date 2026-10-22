@@ -41,7 +41,8 @@ Es agnóstica al stack. El protocolo funciona igual con Next.js, Astro, FastAPI 
 
 ## ¿Qué hay dentro?
 
-- **`CLAUDE.md`** — Contrato de entrada para el agente. Define qué leer, cómo se trabaja una feature, cómo registrar cambios, cómo configurar los MCPs del stack, qué no hacer y dónde están los límites de lo que puede ejecutar por su cuenta.
+- **`AGENTS.md`** — Contrato de entrada para el agente, sea cual sea: Claude Code, Codex, Cursor, Copilot… Define qué leer, cómo se trabaja una feature, cómo registrar cambios, cómo configurar los MCPs del stack, qué no hacer y dónde están los límites de lo que puede ejecutar por su cuenta.
+- **`CLAUDE.md`** — Importa `AGENTS.md` para Claude Code y añade solo lo específico de esa herramienta.
 - **`docs/`** — Ocho archivos vivos que capturan las decisiones que típicamente se pierden entre conversaciones: producto, arquitectura, modelo de datos, design system, business, roadmap, flujos de usuario y testing. **No todos aplican a todos los proyectos**: hay una tabla que decide cuáles según el tamaño.
 - **`docs/features/`** — Una ficha por unidad de trabajo acordada: qué se construye, qué requisitos cierra y **cómo se va a comprobar cada uno**. Es el contrato que se firma antes de escribir código. **Llega vacía**.
 - **`changelog/`** — Registro estructurado de cada cambio importante: qué, cuándo, por qué y qué requisitos cierra. **Llega vacío**: solo con el archivo que explica el formato.
@@ -62,7 +63,7 @@ Es agnóstica al stack. El protocolo funciona igual con Next.js, Astro, FastAPI 
 
 1. **Cualquier sesión empieza leyendo `docs/`.** Si están vacíos o incompletos, el agente pregunta antes de actuar. Y no pide los ocho documentos: pide los que correspondan al tamaño del proyecto.
 2. **Cada funcionalidad del PRD lleva ID y criterio de aceptación comprobable.** "Dado…, cuando…, entonces…", con un resultado que se pueda mirar. Ese criterio es el que después se convierte en test.
-3. **Antes de construir una feature se escribe su ficha** en `docs/features/`, con una tabla que dice cómo se validará cada requisito. Ningún requisito se queda sin tercera columna: o lleva la ruta de su test, o lleva la razón concreta por la que no se puede testear así. **Y esto no es honor system**: un script lo verifica en cada PR, y falla si un test prometido no existe.
+3. **Antes de construir una feature se escribe su ficha** en `docs/features/`, con una tabla que dice cómo se validará cada requisito. Antes de darla por acordada, el agente la revisa como un QA: ambigüedades, contradicciones y casos límite sin cubrir, sin proponer soluciones, para que las resuelvas tú. Después se construye **una fila de la tabla cada vez**, y el agente para a enseñarte cada una. Ningún requisito se queda sin tercera columna: o lleva la ruta de su test, o lleva la razón concreta por la que no se puede testear así. **Y esto no es honor system**: un script lo verifica en cada PR, y falla si un test prometido no existe.
 4. **Los tests se escriben después de implementar**, leyendo el código real. Escritos antes apuntan a selectores imaginados, y acaban vaciándose de aserciones hasta que pasan.
 5. **Cada cambio importante deja registro en `changelog/`** con qué se hizo, qué se modificó, por qué y qué requisitos cierra.
 6. **Si el cambio afecta a algo documentado, se actualiza el doc en la misma sesión.** No hay documentación desincronizada.
@@ -107,18 +108,18 @@ Cada una vive en `.claude/skills/<nombre>/SKILL.md`. Las invocas tú con `/nombr
 
 1. Pulsa **[Usar esta plantilla](https://github.com/polmarza/project-template/generate)** en GitHub, o clona el repo directamente.
 2. Abre el proyecto en Claude Code, Cursor o el agente que prefieras.
-3. Cuando el agente lea `CLAUDE.md` por primera vez, te preguntará qué quieres construir y para quién. Responde y deja que vaya completando los docs contigo, uno a uno.
-4. Con los docs rellenos, el agente **inicializa el proyecto**: reescribe este README para tu producto, rellena los datos de `CLAUDE.md`, ajusta la licencia y `.env.example`, borra los documentos que tu proyecto no necesite y `.template/`, y deja el changelog con su primera entrada real. Lo hace solo; si quieres forzarlo, usa `/init-proyecto`.
+3. Cuando el agente lea `AGENTS.md` por primera vez, te preguntará qué quieres construir y para quién. Responde y deja que vaya completando los docs contigo, uno a uno.
+4. Con los docs rellenos, el agente **inicializa el proyecto**: reescribe este README para tu producto, rellena los datos de `AGENTS.md`, ajusta la licencia y `.env.example`, borra los documentos que tu proyecto no necesite y `.template/`, y deja el changelog con su primera entrada real. Lo hace solo; si quieres forzarlo, usa `/init-proyecto`.
 5. A partir de ahí, arranca el desarrollo. Cada feature empieza por su ficha (`/feature`) y termina con su evidencia. Cada sesión nueva entra ya con todo el contexto cargado.
 
-¿Algo no cuadra en cualquier momento? `/diagnostico` revisa documentación, fichas a medias, entorno, variables, MCPs y tests, y te dice qué falta y cómo arreglarlo. Para problemas del propio Claude Code, o para auditar si `CLAUDE.md` y las skills se han quedado desfasados, está su `/doctor` nativo (`/doctor prompt-audit`).
+¿Algo no cuadra en cualquier momento? `/diagnostico` revisa documentación, fichas a medias, entorno, variables, MCPs y tests, y te dice qué falta y cómo arreglarlo. Para problemas del propio Claude Code, o para auditar si las instrucciones del proyecto y las skills se han quedado desfasadas, está su `/doctor` nativo (`/doctor prompt-audit`).
 
 ---
 
 ## Convenciones
 
 - Gestor de paquetes: **pnpm v11** (no npm, no yarn).
-- El resto de convenciones (idioma, naming, estilo) se decide al rellenar `CLAUDE.md` y `docs/architecture.md`.
+- El resto de convenciones (idioma, naming, estilo) se decide al rellenar `AGENTS.md` y `docs/architecture.md`.
 
 ---
 
@@ -129,7 +130,8 @@ No tienes que hacerlo a mano: el agente lo hace en la inicialización, siguiendo
 | Archivo | Qué pasa con él |
 |---------|-----------------|
 | `README.md` | Se reescribe entero para tu producto (este texto y sus badges desaparecen) |
-| `CLAUDE.md` | Se rellenan nombre, stack, estructura y convenciones |
+| `AGENTS.md` | Se rellenan nombre, stack, estructura y convenciones |
+| `CLAUDE.md` | Se queda tal cual: solo importa `AGENTS.md` |
 | `LICENSE` | El copyright pasa a ser el tuyo |
 | `.env.example` | Se queda solo con las variables de tu stack |
 | `docs/` | Se borran los documentos que tu proyecto no necesita, según su tamaño |

@@ -20,7 +20,7 @@ rm -rf .template
 
 ## Si estás manteniendo la plantilla
 
-Los cambios que hagas sobre el andamiaje (CLAUDE.md, docs vacíos, skills, plantillas de
-GitHub…) se registran en `.template/changelog/`, con el mismo formato que el protocolo de
-`CLAUDE.md`. Así `changelog/` se mantiene limpio y quien use la plantilla no arrastra tu
+Los cambios que hagas sobre el andamiaje (AGENTS.md, CLAUDE.md, docs vacíos, skills,
+plantillas de GitHub…) se registran en `.template/changelog/`, con el mismo formato que el
+protocolo de `AGENTS.md`. Así `changelog/` se mantiene limpio y quien use la plantilla no arrastra tu
 historial al suyo.

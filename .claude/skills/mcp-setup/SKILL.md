@@ -5,7 +5,7 @@ description: Configura los servidores MCP del proyecto según el stack de docs/a
 
 Configura los servidores MCP de este proyecto según el stack definido en `docs/architecture.md`.
 
-Sigue el "Protocolo de MCPs" de `CLAUDE.md`. Esta skill lo lanza a demanda; el flujo normal es
+Sigue el "Protocolo de MCPs" de `AGENTS.md`. Esta skill lo lanza a demanda; el flujo normal es
 que se ejecute solo al terminar la arquitectura o al añadir una integración nueva.
 
 ## 1. Contexto

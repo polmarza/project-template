@@ -87,7 +87,7 @@ graph TD
 ## MCPs del proyecto
 
 <!-- Servidores MCP configurados para trabajar con este proyecto desde el agente de código.
-     Rellenar al configurarlos (ver "Protocolo de MCPs" en CLAUDE.md o la skill /mcp-setup).
+     Rellenar al configurarlos (ver "Protocolo de MCPs" en AGENTS.md o la skill /mcp-setup).
 
      Alcances posibles:
      - user     → global del usuario, no vive en el repo
@@ -117,7 +117,7 @@ graph TD
      Ramas, entornos (local / staging / producción), CI/CD si existe, variables de entorno por entorno.
 
      Deja escrito también **quién despliega y con qué comando**. El agente no publica por su cuenta
-     (ver "Límites de ejecución" en CLAUDE.md): puede dejarlo todo preparado y explicado, pero el
+     (ver "Límites de ejecución" en AGENTS.md): puede dejarlo todo preparado y explicado, pero el
      botón lo pulsa una persona. Tener el procedimiento documentado aquí es lo que hace que esa
      separación no cueste tiempo. -->
 

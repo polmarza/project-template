@@ -42,7 +42,7 @@ Confirma con el usuario antes de pasar al siguiente documento.
 
 Un documento que no aplica **se borra**, no se deja vacío. Un archivo con solo comentarios es
 indistinguible de uno que se olvidó rellenar, y el arranque de cada sesión se para a preguntar por
-él. Antes de borrar, enseña al usuario la lista exacta (límite 4 de `CLAUDE.md`).
+él. Antes de borrar, enseña al usuario la lista exacta (límite 4 de `AGENTS.md`).
 
 ## 4. Cuando el tamaño sube
 

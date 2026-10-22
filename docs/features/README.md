@@ -121,8 +121,8 @@ Tres valores, y se actualizan en el momento, no al final:
 
 | Estado | Significa |
 |--------|-----------|
-| **Acordada** | La ficha está escrita y validada con el usuario. No hay código todavía |
-| **En construcción** | Se está implementando. La tabla de cobertura ya no cambia sin avisar |
+| **Acordada** | La ficha está escrita, revisada en busca de ambigüedades y validada con el usuario. No hay código todavía |
+| **En construcción** | Se está implementando, una fila de la tabla cada vez. La tabla de cobertura ya no cambia sin avisar |
 | **Verificada** | Todos los requisitos de la tabla tienen su validación hecha y pasando |
 
 Sirve para retomar. Una sesión nueva que abra esta carpeta sabe en dos segundos qué hay a medias y

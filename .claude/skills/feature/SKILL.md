@@ -42,10 +42,39 @@ o la ruta del test que lo validará, o `no verificable por interfaz: <razón con
 cómo se comprobará entonces. Si no sabes cuál de las dos poner, pregunta — no lo dejes en blanco
 ni escribas un test que sabes que no vas a escribir.
 
-## 5. Confirma antes de construir
+## 5. Revísala como un QA antes de enseñarla
+
+Relee la ficha como si fueras a encontrarle los fallos, no a defenderla, junto con los requisitos
+del PRD que cierra. Busca:
+
+- **Ambigüedades:** palabras que el agente rellenaría a su manera ("rápido", "bien", "los que no
+  valen") o un "entonces" que no se puede mirar y decir sí o no.
+- **Contradicciones:** entre requisitos de la ficha, o entre la ficha y el PRD.
+- **Casos límite sin cubrir:** el caso negativo previsible, datos vacíos o repetidos, qué pasa si
+  falla una integración.
+- **Choques con las reglas:** con `AGENTS.md` (límites de ejecución, "Qué NO hacer") o con
+  `docs/` (arquitectura, modelo de datos, design system).
+
+Preséntalo como lista numerada, **sin proponer soluciones todavía**: si las propones a la vez, el
+usuario acepta la tuya sin pensar la suya. Cada punto se cierra con el usuario de una de tres
+formas: se corrige la ficha (o el PRD), pasa a "Decisiones tomadas" o pasa a "Fuera de esta
+feature". Repite la revisión si la ficha cambia mucho. Si no encuentras nada, dilo, y di qué has
+revisado.
+
+## 6. Confirma antes de construir
 
 Enseña la ficha al usuario y pregunta si el acuerdo es correcto. Con su visto bueno, cambia el
 estado a **En construcción** y empieza.
+
+## 7. Construye una fila cada vez
+
+Cada fila de la tabla de cobertura es una unidad de trabajo. Implementa un requisito, di qué has
+cambiado y cómo verlo funcionando (qué abrir, qué hacer, qué debería aparecer) y **para**. La
+siguiente fila empieza con el visto bueno del usuario, salvo que te pida avanzar varias seguidas.
+
+Así el usuario revisa trozos que puede comprobar, y un error en el requisito 2 no se descubre
+cuando ya está construido encima el 5. Los tests van después, en su propia pasada, como dice
+`docs/testing.md`.
 
 Mantén el estado al día durante el trabajo, no al final: es lo que permite retomar la feature en
 otra sesión sin reconstruir el contexto.

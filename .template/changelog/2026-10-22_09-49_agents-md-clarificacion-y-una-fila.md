@@ -10,8 +10,9 @@ Tres mejoras sacadas de comparar la plantilla con el flujo de Spec-Driven Develo
 curso de MoureDev (`mouredev/hello-sdd`): constitución, spec, clarificación, plan, tareas,
 implementación y validación.
 
-- **`AGENTS.md` es el contrato de entrada.** Todo lo que había en `CLAUDE.md` pasa a `AGENTS.md`
-  (con `git mv`, para conservar el historial). `CLAUDE.md` se queda en una línea que lo importa
+- **`AGENTS.md` es el contrato de entrada.** Todo lo que había en `CLAUDE.md` pasa a `AGENTS.md`.
+  Como `CLAUDE.md` sigue existiendo, git no lo registra como renombrado: la historia de esas reglas
+  anterior a este cambio está en `git log -- CLAUDE.md`. `CLAUDE.md` se queda en una línea que lo importa
   (`@AGENTS.md`) más lo único que es específico de Claude Code: cómo se lanzan las skills y qué es
   el `/doctor` nativo. `AGENTS.md` explica además que las skills son archivos que cualquier agente
   puede abrir y seguir, no solo comandos de Claude Code.

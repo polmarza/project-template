@@ -113,6 +113,12 @@ Cada una vive en `.claude/skills/<nombre>/SKILL.md`. Las invocas tú con `/nombr
 4. Con los docs rellenos, el agente **inicializa el proyecto**: reescribe este README para tu producto, rellena los datos de `AGENTS.md`, ajusta la licencia y `.env.example`, borra los documentos que tu proyecto no necesite y `.template/`, y deja el changelog con su primera entrada real. Lo hace solo; si quieres forzarlo, usa `/init-proyecto`.
 5. A partir de ahí, arranca el desarrollo. Cada feature empieza por su ficha (`/feature`) y termina con su evidencia. Cada sesión nueva entra ya con todo el contexto cargado.
 
+**El atajo, si empiezas proyectos a menudo:** la skill [`new-project`](https://github.com/polmarza/new-project) hace los pasos 1 y 2 por ti. Le dices al agente "vamos a empezar un nuevo proyecto", le das un nombre, y crea un repositorio privado a partir de esta plantilla, lo clona en tu carpeta de proyectos y te deja dentro, ya en el paso 3. Se instala una sola vez, a nivel de usuario:
+
+```bash
+git clone https://github.com/polmarza/new-project ~/.claude/skills/new-project
+```
+
 ¿Algo no cuadra en cualquier momento? `/diagnostico` revisa documentación, fichas a medias, entorno, variables, MCPs y tests, y te dice qué falta y cómo arreglarlo. Para problemas del propio Claude Code, o para auditar si las instrucciones del proyecto y las skills se han quedado desfasadas, está su `/doctor` nativo (`/doctor prompt-audit`).
 
 ---

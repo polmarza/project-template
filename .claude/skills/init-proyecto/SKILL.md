@@ -51,13 +51,14 @@ los placeholders y los ejemplos que vas a sustituir.
 5. **MCPs** — pregunta qué servidores MCP quiere y con qué alcance, siguiendo el "Protocolo de
    MCPs" de `AGENTS.md`. Si prefieres tratarlo aparte, lanza `/mcp-setup`.
 6. **Panel MoSCoW (solo en Claude Code)** — comprueba si está instalado el mod
-   [moscow-panel](https://github.com/polmarza/moscow-panel) con `claude plugin list`: si aparece
+   [moscow-panel](https://github.com/polmarza/mod-moscow-panel) con `claude plugin list`: si aparece
    una línea que empieza por `moscow-panel@`, dilo en una frase y sigue. Si no aparece, explica
    qué es antes de ofrecerlo: un panel al lado del chat que muestra en qué punto está cada Must,
    Should y Could de `docs/prd.md` según el estado de sus fichas (sin ficha, Acordada, En
    construcción, Verificada), que solo lee esos archivos y se actualiza solo. Enlaza el
    repositorio y pregunta si lo quiere instalar. Si dice que sí, ejecuta
-   `claude plugin install moscow-panel --marketplace polmarza/moscow-panel` y avisa de que el
+   `claude plugin marketplace add polmarza/mod-moscow-panel` y después
+   `claude plugin install moscow-panel@moscow-panel`, y avisa de que el
    panel aparece en la siguiente sesión. Si dice que no, no insistas: `/diagnostico` lo vuelve a
    mencionar. Con otro agente, sáltate este paso: los mods solo existen en Claude Code.
 7. **`docs/`** — borra los documentos que este proyecto no necesite, según `/documentacion`. Los

@@ -57,7 +57,8 @@ los placeholders y los ejemplos que vas a sustituir.
    Should y Could de `docs/prd.md` según el estado de sus fichas (sin ficha, Acordada, En
    construcción, Verificada), que solo lee esos archivos y se actualiza solo. Enlaza el
    repositorio y pregunta si lo quiere instalar. Si dice que sí, ejecuta
-   `claude plugin install moscow-panel --marketplace polmarza/mod-moscow-panel` y avisa de que el
+   `claude plugin marketplace add polmarza/mod-moscow-panel` y después
+   `claude plugin install moscow-panel@moscow-panel`, y avisa de que el
    panel aparece en la siguiente sesión. Si dice que no, no insistas: `/diagnostico` lo vuelve a
    mencionar. Con otro agente, sáltate este paso: los mods solo existen en Claude Code.
 7. **`docs/`** — borra los documentos que este proyecto no necesite, según `/documentacion`. Los

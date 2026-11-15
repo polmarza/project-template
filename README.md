@@ -119,6 +119,12 @@ Cada una vive en `.claude/skills/<nombre>/SKILL.md`. Las invocas tú con `/nombr
 git clone https://github.com/polmarza/new-project ~/.claude/skills/new-project
 ```
 
+**El panel MoSCoW, si usas Claude Code:** el mod [`moscow-panel`](https://github.com/polmarza/moscow-panel) abre un panel al lado del chat con cada Must, Should y Could de `docs/prd.md` y su estado según las fichas de `docs/features/`: sin ficha, Acordada, En construcción o Verificada. Solo lee esos archivos y se actualiza solo. Al inicializar el proyecto, el agente comprueba si lo tienes instalado y, si no, te lo explica y te pregunta si lo quieres; `/diagnostico` lo vuelve a mencionar mientras no esté. Para instalarlo a mano:
+
+```bash
+claude plugin install moscow-panel --marketplace polmarza/moscow-panel
+```
+
 ¿Algo no cuadra en cualquier momento? `/diagnostico` revisa documentación, fichas a medias, entorno, variables, MCPs y tests, y te dice qué falta y cómo arreglarlo. Para problemas del propio Claude Code, o para auditar si las instrucciones del proyecto y las skills se han quedado desfasadas, está su `/doctor` nativo (`/doctor prompt-audit`).
 
 ---

@@ -13,3 +13,7 @@ agente, va en `AGENTS.md`, no aquí.
 - El `/doctor` nativo no es `/diagnostico`: revisa la instalación de Claude Code y, con
   `/doctor prompt-audit`, si las instrucciones del proyecto y las skills están desfasadas o se
   contradicen.
+- El estado del MoSCoW se puede ver en un panel al lado del chat con el mod
+  [moscow-panel](https://github.com/polmarza/moscow-panel), que lee `docs/prd.md` y las fichas de
+  `docs/features/`. Es opcional: `/diagnostico` comprueba si está instalado y, si no, explica qué
+  es y cómo instalarlo.

@@ -50,22 +50,32 @@ los placeholders y los ejemplos que vas a sustituir.
 4. **`.env.example`** — deja solo las variables que el stack elegido necesita de verdad.
 5. **MCPs** — pregunta qué servidores MCP quiere y con qué alcance, siguiendo el "Protocolo de
    MCPs" de `AGENTS.md`. Si prefieres tratarlo aparte, lanza `/mcp-setup`.
-6. **`docs/`** — borra los documentos que este proyecto no necesite, según `/documentacion`. Los
+6. **Panel MoSCoW (solo en Claude Code)** — comprueba si está instalado el mod
+   [moscow-panel](https://github.com/polmarza/moscow-panel) con `claude plugin list`: si aparece
+   una línea que empieza por `moscow-panel@`, dilo en una frase y sigue. Si no aparece, explica
+   qué es antes de ofrecerlo: un panel al lado del chat que muestra en qué punto está cada Must,
+   Should y Could de `docs/prd.md` según el estado de sus fichas (sin ficha, Acordada, En
+   construcción, Verificada), que solo lee esos archivos y se actualiza solo. Enlaza el
+   repositorio y pregunta si lo quiere instalar. Si dice que sí, ejecuta
+   `claude plugin install moscow-panel --marketplace polmarza/moscow-panel` y avisa de que el
+   panel aparece en la siguiente sesión. Si dice que no, no insistas: `/diagnostico` lo vuelve a
+   mencionar. Con otro agente, sáltate este paso: los mods solo existen en Claude Code.
+7. **`docs/`** — borra los documentos que este proyecto no necesite, según `/documentacion`. Los
    que no aplican se borran, no se dejan vacíos. `docs/features/` se queda vacía, solo con su
    `README.md`.
-7. **`mejoras/backlog.md`** — borra el ejemplo comentado y déjalo listo para entradas reales.
-8. **Borrados** — `.template/` entera (es el historial de la plantilla, no del proyecto) y esta
+8. **`mejoras/backlog.md`** — borra el ejemplo comentado y déjalo listo para entradas reales.
+9. **Borrados** — `.template/` entera (es el historial de la plantilla, no del proyecto) y esta
    misma skill, `.claude/skills/init-proyecto/`, que deja de tener sentido una vez hecha. Enseña
    antes la lista exacta de lo que va a desaparecer y espera confirmación. Después quita las
    referencias que queden a `.template/assets/` (hay una en `docs/features/README.md`) y a
    `/init-proyecto` (en `README.md` y `AGENTS.md`).
-9. **`changelog/`** — debe quedar sin entradas heredadas. Crea la primera entrada real del
-   proyecto (tipo: Configuración) con `/changelog` y quita de `changelog/README.md` la referencia
-   a la plantilla, o borra el archivo.
-10. **Restos** — busca referencias sobrantes y corrige cada una que hable de la plantilla en lugar
+10. **`changelog/`** — debe quedar sin entradas heredadas. Crea la primera entrada real del
+    proyecto (tipo: Configuración) con `/changelog` y quita de `changelog/README.md` la referencia
+    a la plantilla, o borra el archivo.
+11. **Restos** — busca referencias sobrantes y corrige cada una que hable de la plantilla en lugar
     del proyecto:
     `grep -ril "plantilla\|template" . --exclude-dir=.git --exclude-dir=node_modules`
-11. **Comprobación final** — pasa `/diagnostico`: documentación, entorno, variables, MCPs y tests.
+12. **Comprobación final** — pasa `/diagnostico`: documentación, entorno, variables, MCPs y tests.
     Si algo sale en FALLO, arréglalo antes de dar la inicialización por terminada.
 
 **Regla general:** al terminar, ningún archivo del repo se describe a sí mismo como plantilla ni

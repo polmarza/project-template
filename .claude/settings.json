@@ -9,6 +9,7 @@
       "Bash(node -v)",
       "Bash(node --version)",
       "Bash(claude mcp list)",
+      "Bash(claude plugin list)",
       "Bash(git status)",
       "Bash(git diff*)",
       "Bash(git log*)",

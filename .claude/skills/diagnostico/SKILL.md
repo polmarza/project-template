@@ -65,6 +65,15 @@ Ejecuta `claude mcp list`. Contrasta el resultado con la tabla "MCPs del proyect
 - Si es barato, ejecútalo y reporta el resultado real. Si tarda o necesita servicios levantados, no
   lo lances: di que no se ha ejecutado y por qué. **No des por bueno lo que no has visto pasar.**
 
+### 6. Panel MoSCoW (solo en Claude Code)
+
+Ejecuta `claude plugin list` y mira si hay una línea que empieza por `moscow-panel@`. Es opcional,
+así que no es una fila de la tabla: si no está instalado, añade debajo una línea que diga qué es
+(un panel al lado del chat con el estado de cada Must, Should y Could del PRD según sus fichas),
+el repositorio, https://github.com/polmarza/moscow-panel, y el comando para instalarlo:
+`claude plugin install moscow-panel --marketplace polmarza/moscow-panel`. Si está instalado, no
+digas nada. Con otro agente, sáltate este punto.
+
 ## Cómo reportar
 
 Una tabla, un renglón por comprobación:

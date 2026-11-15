@@ -71,7 +71,8 @@ Ejecuta `claude plugin list` y mira si hay una línea que empieza por `moscow-pa
 así que no es una fila de la tabla: si no está instalado, añade debajo una línea que diga qué es
 (un panel al lado del chat con el estado de cada Must, Should y Could del PRD según sus fichas),
 el repositorio, https://github.com/polmarza/mod-moscow-panel, y el comando para instalarlo:
-`claude plugin install moscow-panel --marketplace polmarza/mod-moscow-panel`. Si está instalado, no
+`claude plugin marketplace add polmarza/mod-moscow-panel` y después
+`claude plugin install moscow-panel@moscow-panel`. Si está instalado, no
 digas nada. Con otro agente, sáltate este punto.
 
 ## Cómo reportar

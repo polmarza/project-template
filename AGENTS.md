@@ -212,13 +212,16 @@ Una feature es lo que se acuerda, se construye y se da por terminado de una vez.
 `docs/features/` marca en cuál de estos cuatro tiempos estás, y se actualiza en el momento, no al
 final:
 
-1. **Acordar** — `/feature` crea la ficha (estado **Acordada**). Antes de enseñarla, revísala como
-   lo haría un QA: ambigüedades, contradicciones, casos límite sin cubrir y choques con este
-   archivo o con `docs/`, en una lista numerada y sin proponer soluciones todavía. Se resuelven con
-   el usuario, y solo entonces se pide el visto bueno para escribir código.
-2. **Construir** — **En construcción**. Una fila de la tabla de cobertura cada vez: implementa ese
-   requisito, di qué has cambiado y cómo verlo funcionando, y para. La siguiente fila empieza con
-   el visto bueno del usuario, salvo que te pida avanzar varias seguidas.
+1. **Acordar** — `/feature` crea la ficha (estado **Acordada**): qué se construye, su
+   comportamiento (estados, fallos, casos límite), la tabla de cobertura y el plan en orden.
+   Antes de enseñarla, revísala como lo haría un QA: ambigüedades, contradicciones, casos límite
+   sin cubrir y choques con este archivo o con `docs/`, en una lista numerada y sin proponer
+   soluciones todavía. Se resuelven con el usuario, y solo entonces se pide el visto bueno para
+   escribir código.
+2. **Construir** — **En construcción**. Un paso del plan cada vez: impleméntalo, di qué has
+   cambiado y cómo verlo funcionando, ciérralo en un commit propio y para. El siguiente paso empieza
+   con el visto bueno del usuario, salvo que te pida avanzar varios seguidos. Si a mitad aparece un
+   requisito que no está en el PRD, para: va al PRD antes que al código.
 3. **Validar** — con el código escrito, los tests y las revisiones humanas declarados en la tabla.
    **Verificada**.
 4. **Cerrar** — changelog, `docs/` al día y PR con la evidencia. Antes: `node scripts/verificar-cobertura.mjs`.

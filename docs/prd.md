@@ -31,6 +31,35 @@
 
 ---
 
+## Objetivos y métricas de éxito
+
+<!-- El porqué, escrito de forma que sirva para decidir. Es lo que el agente consulta cuando se
+     encuentra un caso que ningún requisito cubre: entre dos soluciones válidas, elige la que
+     acerca a estos objetivos. Sin esta sección, elige la que le resulta más cómoda.
+
+     Tres bloques, cortos:
+
+     - **Objetivo del usuario:** qué consigue la persona que antes no podía, con su restricción
+       real (tiempo, contexto, nivel). Ejemplo: "repasar una lección en los 20 minutos que tiene
+       antes del quiz", no "entender mejor el contenido".
+     - **Objetivo del producto o negocio:** qué tiene que pasar para que merezca la pena
+       construirlo. Si es un proyecto personal, dilo: también es un objetivo.
+     - **Cómo sabremos que funciona:** una o dos métricas que midan el objetivo del usuario, no la
+       actividad. "% de estudiantes que repasan con el resumen antes del quiz" dice más que
+       "número de resúmenes generados". Con valor objetivo si lo hay.
+
+     Las métricas de ingresos, conversión a pago o coste de adquisición, si las hay, van en
+     `business.md`. -->
+
+**Objetivo del usuario:** <!-- ... -->
+
+**Objetivo del producto:** <!-- ... -->
+
+**Cómo sabremos que funciona:**
+- <!-- métrica — valor objetivo -->
+
+---
+
 ## Funcionalidades core (MoSCoW)
 
 <!-- Priorizar con:

@@ -38,13 +38,15 @@
 
 ---
 
-## Métricas de éxito
+## Métricas de negocio
 
-<!-- Qué significa que el producto "funciona". Con valores objetivo si es posible.
+<!-- Solo las que miden si el negocio se sostiene. Las que miden si el producto le sirve al usuario
+     viven en `prd.md` → "Objetivos y métricas de éxito", que existe en todos los proyectos;
+     no las repitas aquí.
      Ejemplo:
      - 100 usuarios activos mensuales en los primeros 3 meses
-     - Tasa de retención semana 4 > 40%
-     - NPS > 30 -->
+     - Conversión de gratis a pago > 4%
+     - Tasa de retención semana 4 > 40% -->
 
 ---
 

@@ -2,11 +2,13 @@
 
 Entre la documentación de `docs/` (que describe el proyecto entero) y el código hay un hueco: la
 unidad de trabajo. Una feature es lo que se acuerda, se construye y se da por terminado de una vez.
-Su ficha es el contrato: **qué se construye, cómo se sabrá que funciona y qué queda fuera** —
-escrito antes de empezar, no reconstruido después a partir del diff.
+Su ficha es el contrato: **qué se construye, cómo se comporta, en qué orden se construye, cómo se
+sabrá que funciona y qué queda fuera**, escrito antes de empezar y no reconstruido después a partir
+del diff.
 
-La ficha no sustituye a `docs/`. El PRD dice *qué* quiere el producto; la ficha dice *cómo* se
-resuelve un trozo concreto y con qué se demuestra. Cuando la feature termina, lo que aprendimos
+La ficha no sustituye a `docs/`. El PRD dice *qué* quiere el producto y *por qué*; la ficha dice
+*cómo* debe funcionar un trozo concreto (su spec), *en qué orden* se construye (su plan) y con qué
+se demuestra. Cuando la feature termina, lo que aprendimos
 sube a `docs/` y la ficha se queda como registro de la decisión.
 
 Esta carpeta **empieza vacía a propósito**: solo con este archivo, que explica el formato.
@@ -43,6 +45,22 @@ Crea la ficha con `/feature`. Un archivo por feature: `docs/features/nombre-en-k
 Dos o tres párrafos. Qué verá o podrá hacer el usuario cuando esto exista.
 Sin detalle de implementación: eso va en la tabla de cobertura y en el código.
 
+## Comportamiento
+
+Solo lo que el agente decidiría distinto de como lo quieres si no estuviera escrito.
+Un apartado que no aplique se borra; si el flujo ya está en `docs/user-flows.md`,
+enlaza su `FLOW-xx` en vez de repetirlo.
+
+- **Estados:** qué ve el usuario en cada uno (vacío, cargando, listo, error) y qué
+  lo hace pasar de uno a otro.
+- **Cuando algo falla:** qué se le dice, qué se conserva de lo que ya había hecho y
+  cómo sigue.
+- **Casos límite:** datos vacíos, repetidos o enormes; doble clic; sin conexión.
+- **Datos y contratos:** qué crea, lee o expone esta feature (tabla, endpoint,
+  evento). Si cambia el modelo de datos, va también a `docs/data-model.md`.
+- **Si hay IA:** con qué conjunto de casos y qué umbral se evalúa, fijado antes de
+  construir, y que se vuelve a pasar al cambiar el modelo o el prompt.
+
 ## Decisiones tomadas
 
 Las que no se deducen del código y costaría volver a discutir. Una línea cada una,
@@ -56,6 +74,19 @@ que llevarla a `docs/` en la misma sesión.
 | M-01 | `src/app/(auth)/registro/` | `tests/registro.spec.ts` |
 | M-02 | `src/components/chat/` | revisión humana: el chat en la vista previa a tamaño móvil; se lee sin desplazar en horizontal |
 | M-03 | migración `002_indices` | no verificable por interfaz: índice de BD, se comprueba con `EXPLAIN` antes del PR |
+
+## Plan
+
+Los pasos en el orden en que se construyen. Cada paso cubre una o más filas de la
+tabla y termina en algo que se puede revisar.
+
+1. **M-03** — Índices y migración reversible. *Revisable:* `EXPLAIN` usa el índice.
+   *Se deshace con:* la migración de bajada.
+2. **M-01** — Registro con email (depende de 1). *Revisable:* en local, el registro
+   llega al dashboard vacío.
+3. **M-02** — Chat (depende de 2). *Revisable:* la vista previa a tamaño móvil.
+
+**Riesgos:** lo que puede torcer el plan y qué se hace si pasa. Una línea cada uno.
 
 ## Fuera de esta feature
 
@@ -124,6 +155,31 @@ Una fila puede declarar varios tests separándolos por comas.
 
 ---
 
+## Comportamiento y plan: lo justo
+
+Las dos secciones existen por lo mismo: **una decisión que no está escrita la toma el agente, y la
+toma dentro del código**, donde nadie la revisa. "Comportamiento" cubre lo que pasa cuando las
+cosas no van bien, que es lo que los criterios de aceptación del PRD suelen dejar fuera. "Plan"
+cubre el orden, que sin escribir se decide sobre la marcha.
+
+No son para rellenar por rellenar. Una ficha de una sola fila tiene un plan de un paso, y basta una
+línea. Un comportamiento detallado sobre algo que da igual cómo salga es ruido. La pregunta para
+cada línea es: *si no la escribo, ¿podría el agente hacer algo que no quiero?* Si la respuesta es
+no, sobra.
+
+Tres reglas del plan:
+
+- **Cada paso termina en un estado revisable y en un commit.** Es lo que te deja comprobar un trozo
+  antes de que se construya otro encima, y volver atrás si hace falta.
+- **Lo que toca datos o servicios externos dice cómo se deshace.** Los checkpoints del agente
+  deshacen ediciones de archivos, no una migración aplicada ni un registro creado en un servicio
+  externo. Migraciones reversibles, y la vuelta atrás escrita en el paso.
+- **El plan decide cómo, no qué.** Puede elegir el orden, partir un requisito en dos pasos o
+  resolver detalles de implementación. Si aparece un requisito nuevo, no entra en el plan en
+  silencio: primero va al PRD, con su ID y su criterio, y después a la tabla.
+
+---
+
 ## Estado de la ficha
 
 Tres valores, y se actualizan en el momento, no al final:
@@ -131,7 +187,7 @@ Tres valores, y se actualizan en el momento, no al final:
 | Estado | Significa |
 |--------|-----------|
 | **Acordada** | La ficha está escrita, revisada en busca de ambigüedades y validada con el usuario. No hay código todavía |
-| **En construcción** | Se está implementando, una fila de la tabla cada vez. La tabla de cobertura ya no cambia sin avisar |
+| **En construcción** | Se está implementando, un paso del plan cada vez. La tabla de cobertura y el plan ya no cambian sin avisar |
 | **Verificada** | Todos los requisitos de la tabla tienen su validación hecha y pasando |
 
 Sirve para retomar. Una sesión nueva que abra esta carpeta sabe en dos segundos qué hay a medias y

@@ -32,10 +32,17 @@ Lee también `docs/architecture.md` y `docs/data-model.md` si la feature toca es
 - Nombre de la feature (el archivo será `kebab-case.md`)
 - Qué debe poder hacer el usuario cuando esto exista
 - Qué queda explícitamente fuera
+- Qué tiene que pasar cuando algo falla, si no se deduce del PRD ni de `docs/user-flows.md`
 
 ## 4. Escribe la ficha
 
 Usa la plantilla de `docs/features/README.md`. Estado inicial: **Acordada**.
+
+**Comportamiento.** Escribe solo lo que harías distinto de lo que quiere el usuario si no estuviera
+escrito: los estados que ve, qué se le dice y qué se conserva cuando algo falla, los casos límite y
+los datos o contratos que la feature crea o consume. Lo que no aplique se borra. Si el flujo ya
+está en `docs/user-flows.md`, enlaza su `FLOW-xx`. Si la feature usa IA, fija con el usuario el
+conjunto de casos y el umbral con que se evaluará, antes de construir.
 
 La tabla de cobertura se rellena entera, sin huecos. Por cada requisito, la tercera columna lleva
 una de tres cosas:
@@ -51,6 +58,11 @@ Si no sabes cuál poner, pregunta — no lo dejes en blanco ni escribas un test 
 a escribir. Y no uses la revisión humana para lo que un test cubriría bien: el test se repite solo
 en cada PR; la revisión depende de que alguien la haga.
 
+**Plan.** Ordena las filas de la tabla en pasos según sus dependencias: primero lo que otros
+necesitan (datos, contratos), después lo que se apoya en ello. Cada paso dice qué queda revisable
+al terminarlo y, si toca datos o servicios externos, cómo se deshace. Añade los riesgos que puedan
+torcer el orden. Una ficha de una sola fila tiene un plan de una línea; no lo infles.
+
 ## 5. Revísala como un QA antes de enseñarla
 
 Relee la ficha como si fueras a encontrarle los fallos, no a defenderla, junto con los requisitos
@@ -60,7 +72,9 @@ del PRD que cierra. Busca:
   valen") o un "entonces" que no se puede mirar y decir sí o no.
 - **Contradicciones:** entre requisitos de la ficha, o entre la ficha y el PRD.
 - **Casos límite sin cubrir:** el caso negativo previsible, datos vacíos o repetidos, qué pasa si
-  falla una integración.
+  falla una integración, un estado de la interfaz que nadie ha descrito.
+- **Plan que no se sostiene:** un paso que depende de otro posterior, un paso que no deja nada
+  revisable, o uno que toca datos sin decir cómo se deshace.
 - **Choques con las reglas:** con `AGENTS.md` (límites de ejecución, "Qué NO hacer") o con
   `docs/` (arquitectura, modelo de datos, design system).
 
@@ -75,14 +89,19 @@ revisado.
 Enseña la ficha al usuario y pregunta si el acuerdo es correcto. Con su visto bueno, cambia el
 estado a **En construcción** y empieza.
 
-## 7. Construye una fila cada vez
+## 7. Construye un paso del plan cada vez
 
-Cada fila de la tabla de cobertura es una unidad de trabajo. Implementa un requisito, di qué has
-cambiado y cómo verlo funcionando (qué abrir, qué hacer, qué debería aparecer) y **para**. La
-siguiente fila empieza con el visto bueno del usuario, salvo que te pida avanzar varias seguidas.
+Cada paso del plan es una unidad de trabajo. Impleméntalo, di qué has cambiado y cómo verlo
+funcionando (qué abrir, qué hacer, qué debería aparecer), ciérralo en un commit propio y **para**.
+El siguiente paso empieza con el visto bueno del usuario, salvo que te pida avanzar varios
+seguidos.
 
-Así el usuario revisa trozos que puede comprobar, y un error en el requisito 2 no se descubre
-cuando ya está construido encima el 5. Los tests van después, en su propia pasada, como dice
+Así el usuario revisa trozos que puede comprobar, un error en el paso 2 no se descubre cuando ya
+está construido encima el 5, y cada paso tiene un punto al que volver.
+
+El plan puede cambiar de orden o partir un paso en dos; dilo y actualiza la ficha. Lo que no puede
+es crecer en silencio: si aparece un requisito que no está en el PRD, para y pregúntalo. Va al PRD,
+con su ID y su criterio, antes que a la tabla y al código. Los tests van después, en su propia pasada, como dice
 `docs/testing.md`.
 
 Mantén el estado al día durante el trabajo, no al final: es lo que permite retomar la feature en
